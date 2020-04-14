@@ -9,5 +9,3 @@ integrated 2.4 GHz transceiver supporting BR, EDR, and BLE.
 ### Kits Supported
 
 CYW9M2BASE-43012BT
-
-(This repo is placeholder for future release)
