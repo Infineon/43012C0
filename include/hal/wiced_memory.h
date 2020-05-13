@@ -157,3 +157,26 @@ uint32_t wiced_bt_get_buffer_size( void* p_buf );
  * @return          WICED_BT_SUCCESS on success else error
  */
 wiced_result_t wiced_bt_get_buffer_usage ( wiced_bt_buffer_statistics_t *p_buffer_stat, uint16_t size );
+
+/**
+ * Function         wiced_memory_allocate
+ *
+ *                  Allocates memory from Dynamic Memory pools
+ *
+ * @param[in]       size           :size of the memory to be allocated
+ *
+ * @return          pointer to the allocated memory on success
+ *                  NULL on failure
+ */
+void* wiced_memory_allocate( uint32_t size );
+
+/**
+ * Function         wiced_memory_free
+ *
+ *                  Frees the buffer
+ *
+ * @param[in]       p_buf           : free memory allocated from Dynamic Memory pools
+ *
+ * @return          None
+ */
+void wiced_memory_free( void *memoryBlock );

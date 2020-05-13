@@ -88,7 +88,7 @@ typedef enum
 typedef struct{
     uint32_t init_count;
     uint32_t toggle_count;
-} pwm_config_t;
+} wiced_pwm_config_t;
 
 /******************************************************************************
 *** Function prototypes and defines.
@@ -211,7 +211,7 @@ void wiced_hal_pwm_configure_pin( uint8_t  pin, uint8_t PWM);
 ///
 /// \return VOID
 ///////////////////////////////////////////////////////////////////////////////
-void wiced_hal_pwm_get_params( uint32_t clock_frequency_in, uint32_t duty_cycle, uint32_t pwm_frequency_out, pwm_config_t * params_out);
+void wiced_hal_pwm_get_params( uint32_t clock_frequency_in, uint32_t duty_cycle, uint32_t pwm_frequency_out, wiced_pwm_config_t * params_out);
 
 /* @} */
 

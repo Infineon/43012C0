@@ -37,9 +37,7 @@
 #include "wiced.h"
 #include "wiced_result.h"
 #include "wiced_bt_trace.h"
-#ifndef CYW43012C0
 #include "data_types.h"
-#endif
 
 #pragma once
 

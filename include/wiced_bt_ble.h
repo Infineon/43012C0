@@ -652,6 +652,30 @@ wiced_result_t wiced_bt_ble_read_adv_tx_power(wiced_bt_dev_cmpl_cback_t *p_cback
  */
 wiced_result_t wiced_bt_ble_set_channel_classification(const wiced_bt_ble_chnl_map_t ble_channel_map);
 
+/**
+ * Function         wiced_btm_get_private_bda
+ *
+ *                  Acquire current BLE Resolvable Private Address
+ *
+ * @param[in]       None
+ *
+ * @return          uint8_t * - current rpa's pointer
+ */
+uint8_t *wiced_btm_get_private_bda(void);
+
+/**
+ * Function         wiced_ble_private_device_address_resolution
+ *
+ *                  Private Device Address Resolution
+ *
+ * @param rpa       BLE Resolvable Private Address
+ * @param irk       BLE IRK
+ * @return          wiced_result_t
+ *                  WICED_BT_SUCCESS the identity of device address has been resolved.
+ *                  WICED_BT_ERROR   otherwise.
+ */
+wiced_result_t wiced_ble_private_device_address_resolution(wiced_bt_device_address_t rpa, BT_OCTET16 irk);
+
 /**@} btm_ble_api_functions */
 
 #ifdef __cplusplus

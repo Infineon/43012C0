@@ -18,6 +18,8 @@
 #ifndef __WICED_GPIO_H__
 #define __WICED_GPIO_H__
 
+#include "wiced.h"
+
 /**  \addtogroup GPIODriver
 * \ingroup HardwareDrivers
 */

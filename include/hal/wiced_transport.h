@@ -42,6 +42,7 @@
 /*****************************************************************************
 **                                                Type Definitions
 *****************************************************************************/
+#define wiced_transport_set_detect_on(a)    WICED_SUCCESS
 
 /** Wiced transport types */
 typedef enum

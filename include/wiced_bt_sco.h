@@ -19,7 +19,10 @@
 /******************************************************
  *              Constants
  ******************************************************/
-
+#define WICED_BT_SCO_CONNECTION_ACCEPT              0x00
+#define WICED_BT_SCO_CONNECTION_REJECT_RESOURCES    0x0D
+#define WICED_BT_SCO_CONNECTION_REJECT_SECURITY     0x0E
+#define WICED_BT_SCO_CONNECTION_REJECT_DEVICE       0x0F
 
 #define WICED_INVALID_SCO_INDEX           0xFFFF
 #define WICED_SCO_LINK_ALL_PKT_MASK       0x003F
@@ -118,6 +121,27 @@ wiced_bt_dev_status_t wiced_bt_sco_create_as_initiator (wiced_bt_device_address_
 wiced_bt_dev_status_t wiced_bt_sco_create_as_acceptor (uint16_t *p_sco_index);
 
 /**
+ * Function         wiced_bt_sco_create_as_acceptor
+ *
+ *                  Creates a synchronous connection oriented connection as acceptor with specifi
+ *                  Audio Gateway.
+ *  @param[in]  ag_addr                 : Target Audio Gateway's address
+ *  @param[out] p_sco_index             : SCO index returned
+ *
+ *  @return     <b> WICED_BT_UNKNOWN_ADDR </b>      : Create connection failed, ACL connection is not up or
+ *                                                    address is invalid
+ *              <b> WICED_BT_BUSY </b>              : Create connection failed, a SCO connection is already
+ *                                                    conncted to the same BD address
+ *              <b> WICED_BT_WRONG_MODE </b>        : Create connection failed, link in park mode or
+ *                                                    automatic un-park is not supported
+ *              <b> WICED_BT_NO_RESOURCES </b>      : Create connection failed, max SCO limit has been
+ *                                                    reached
+ *              <b> BTM_CMD_STARTED </b>            : Create connection successfully, "p_sco_index" is returned
+ */
+wiced_bt_dev_status_t wiced_bt_sco_create_as_acceptor_with_specific_ag(wiced_bt_device_address_t ag_addr,
+                                                                       uint16_t *p_sco_index);
+
+/**
  * Function         wiced_bt_sco_remove
  *
  *                  Removes a specific synchronous connection oriented connection.
@@ -152,7 +176,7 @@ void wiced_bt_sco_accept_connection (uint16_t sco_index, uint8_t hci_status,
 
 
 /**
- * Function         wiced_bt_sco_setup_voice_path
+ * Function         wiced_bt_setup_voice_path
  *
  *                  Configure the SCO routing path.
  *
@@ -163,7 +187,8 @@ void wiced_bt_sco_accept_connection (uint16_t sco_index, uint8_t hci_status,
  *              WICED_BT_PENDING    : Command sent. Waiting for command complete event.
  *              WICED_BT_BUSY       : Command not sent. Waiting for command complete event for prior command.
  */
-wiced_bt_dev_status_t wiced_bt_sco_setup_voice_path(wiced_bt_voice_path_setup_t *pData);
+wiced_bt_dev_status_t wiced_bt_setup_voice_path(wiced_bt_voice_path_setup_t *pData);
+#define wiced_bt_sco_setup_voice_path wiced_bt_setup_voice_path
 
 /**
  * Function         wiced_bt_sco_turn_off_pcm_clock

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
@@ -30,10 +30,19 @@
  * of such system or application assumes all risk of such use and in doing
  * so agrees to indemnify Cypress against all liability.
  */
+/** @file
+ *
+ * This file provides definitions of the LED Manager library interface.
+ * LED Manager library provides API's to enable/disable, blink and set brightness of a LED.
+ */
 #pragma once
 
-#include "wiced.h"
 #include "data_types.h"
+#include "wiced_rtos.h"
+#include "wiced.h"
+#include "wiced_timer.h"
+#include "platform_led.h"
+#include "wiced_platform.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,14 +52,16 @@ extern "C" {
  *                      Macros
  ******************************************************/
 /**
- * determine size (number of elements) in an array
+ * @brief Logical LED-id's which map to physical LED's on the board
+ *
  */
-#define ARRAY_SIZE(a)                                ( sizeof(a) / sizeof(a[0]) )
+typedef platform_led_t wiced_led_t;
 
-/**
- * Macro to determine the element index in an array from the element address
- */
-#define ARRAY_POSITION( array, element_pointer )     ( ((uint32_t)element_pointer - (uint32_t)array) / sizeof(array[0]) )
+typedef struct {
+    wiced_led_t led;    /**< LED id             */
+    uint16_t bright;    /**< in % from 1 to 100 */
+}
+wiced_led_config_t;
 
 /******************************************************
  *                    Constants
@@ -58,21 +69,6 @@ extern "C" {
 
 /******************************************************
  *                   Enumerations
- ******************************************************/
-/* Logical Button-ids which map to phyiscal buttons on the board */
-typedef enum
-{
-    PLATFORM_BUTTON_1,  // BT_GPIO_2
-    PLATFORM_BUTTON_MAX, /* Denotes the total number of Buttons on the board. Not a valid Button Alias */
-} platform_button_t;
-/******************************************************
- *                 Type Definitions
- ******************************************************/
-
-typedef void (*platform_button_state_change_callback_t)( platform_button_t id, wiced_bool_t new_state );
-
-/******************************************************
- *                    Structures
  ******************************************************/
 
 /******************************************************
@@ -82,13 +78,56 @@ typedef void (*platform_button_state_change_callback_t)( platform_button_t id, w
 /******************************************************
  *               Function Declarations
  ******************************************************/
-extern wiced_result_t  platform_button_init( platform_button_t button );
-extern wiced_result_t  platform_button_deinit( platform_button_t button );
-extern wiced_result_t  platform_button_enable( platform_button_t button );
-extern wiced_result_t  platform_button_disable( platform_button_t button );
-extern wiced_bool_t    platform_button_get_value( platform_button_t button );
-extern wiced_result_t  platform_button_register_state_change_callback( platform_button_state_change_callback_t callback );
 
+/**
+ * Function to Initialize the LED Manager
+ *
+ * @param  config      : Configuration for the LED.
+ * @return             : result.
+ */
+extern wiced_result_t wiced_led_manager_init( wiced_led_config_t* config);
+
+/**
+ * Function to de-initialize the LED Manager
+ *
+ * @param  void        : No arguments.
+ * @return             : result.
+ */
+extern wiced_result_t wiced_led_manager_deinit(void);
+
+/**
+ * Enables the selected LED
+ *
+ * @param  led      : LED to be enabled.
+ * @return          : result.
+ */
+extern wiced_result_t wiced_led_manager_enable_led(wiced_led_t led);
+
+/**
+ * Disables the selected LED
+ *
+ * @param  led      : LED to be disabled.
+ * @return          : result.
+ */
+extern wiced_result_t wiced_led_manager_disable_led(wiced_led_t led);
+
+/**
+ * Reconfigures the LED
+ *
+ * @param  config      : Configuration for the LED.
+ * @return             : result.
+ */
+extern wiced_result_t wiced_led_manager_reconfig_led( wiced_led_config_t* config);
+
+/**
+ * Function called to blink a LED
+ *
+ * @param  led            : LED to be blinked.
+ * @param  on_period      : on period (ms)
+ * @param  off_period     : off period (ms)
+ * @return                : result.
+ */
+wiced_result_t wiced_led_manager_blink_led(wiced_led_t led, uint32_t on_period, uint32_t off_period);
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

@@ -611,6 +611,16 @@ typedef struct
     uint16_t                    supervision_timeout;/**< updated supervision timeout */
 } wiced_bt_ble_connection_param_update_t;
 
+//TODO:
+/** BLE Physical link update event related data */
+typedef struct
+{
+    uint8_t                      status;      /**< LE Phy update status */
+    wiced_bt_device_address_t    bd_address;  /**< peer BD address*/
+    uint8_t                      tx_phy;      /**< Transmitter PHY, values: 1=1M, 2=2M, 3=LE coded */
+    uint8_t                      rx_phy;      /**< Receiver PHY, values: 1=1M, 2=2M, 3=LE coded */
+} wiced_bt_ble_phy_update_t;
+
 /** Power Management status codes */
 #ifndef BTM_PM_STATUS_CODES
 #define BTM_PM_STATUS_CODES
@@ -692,7 +702,9 @@ verify that the correct link key has been generated. Event data: #wiced_bt_devic
     BTM_SCO_DISCONNECTED_EVT,                       /**< SCO disconnected event. Event data: #wiced_bt_sco_disconnected_t */
     BTM_SCO_CONNECTION_REQUEST_EVT,                 /**< SCO connection request event. Event data: #wiced_bt_sco_connection_request_t */
     BTM_SCO_CONNECTION_CHANGE_EVT,					/**< SCO connection change event. Event data: #wiced_bt_sco_connection_change_t */
-    BTM_BLE_CONNECTION_PARAM_UPDATE                 /**< BLE connection parameter update. Event data: #wiced_bt_ble_connection_param_update_t */
+    BTM_BLE_CONNECTION_PARAM_UPDATE,                /**< BLE connection parameter update. Event data: #wiced_bt_ble_connection_param_update_t */
+//TODO:
+    BTM_BLE_PHY_UPDATE_EVT							/**< BLE Physical link update. Event data: wiced_bt_ble_phy_update_t */
 
 };
 #endif
@@ -978,6 +990,9 @@ typedef union
     wiced_bt_sco_connection_request_t   sco_connection_request;             /**< Data for BTM_SCO_CONNECTION_REQUEST_EVT */
     wiced_bt_sco_connection_change_t    sco_connection_change;              /**< Data for BTM_SCO_CONNECTION_CHANGE_EVT */
     wiced_bt_ble_connection_param_update_t  ble_connection_param_update;    /**< Data for BTM_BLE_CONNECTION_PARAM_UPDATE */
+//TODO:
+    wiced_bt_ble_phy_update_t               ble_phy_update_event;               /**< Data for BTM_BLE_PHY_UPDATE_EVT */
+
 } wiced_bt_management_evt_data_t;
 
 /**
@@ -1046,6 +1061,14 @@ typedef void (wiced_bt_dev_cmpl_cback_t) (void *p_data);
  * @return Nothing
  */
 typedef void (wiced_bt_dev_vendor_specific_command_complete_cback_t) (wiced_bt_dev_vendor_specific_command_complete_params_t *p_command_complete_params);
+
+/**
+ * Vendor event handler callback
+ *
+ * @param len               : input data length
+ * @param p                 : input data
+ */
+typedef void (wiced_bt_dev_vse_callback_t)(uint8_t len, uint8_t *p);
 
 /******************************************************
  *               Function Declarations
@@ -1685,6 +1708,24 @@ void wiced_bt_set_local_bdaddr( wiced_bt_device_address_t  bda , wiced_bt_ble_ad
 wiced_result_t wiced_bt_dev_get_role( wiced_bt_device_address_t remote_bd_addr, uint8_t *p_role, wiced_bt_transport_t transport );
 
 /**
+ * Function         wiced_bt_dev_switch_role
+ *
+ *                  This function is called to switch the role between master and
+ *                  slave.  If role is already set it will do nothing. If the
+ *                  command was initiated, the callback function is called upon
+ *                  completion.
+ *
+ * @param[in]       remote_bd_addr      : BD address of remote device
+ * @param[in]       new_role            : New role (BTM_ROLE_MASTER or BTM_ROLE_SLAVE)
+ * @param[in]       p_cback             : Result callback (wiced_bt_dev_switch_role_result_t will be passed to the callback)
+
+ *
+ * @return      wiced_result_t
+ *
+ */
+wiced_result_t wiced_bt_dev_switch_role( wiced_bt_device_address_t remote_bd_addr, UINT8 new_role, wiced_bt_dev_cmpl_cback_t *p_cback );
+
+/**
  * Function         wiced_bt_dev_get_security_state
  *
  *                  Get security flags for the device
@@ -1786,6 +1827,18 @@ void wiced_bt_set_pairable_mode(uint8_t allow_pairing, uint8_t connect_only_pair
 wiced_bt_dev_status_t wiced_bt_dev_set_afh_channel_classification(const wiced_bt_br_chnl_map_t afh_channel_map);
 
 /**
+ * Function        wiced_bt_dev_register_vse_callback
+ *
+ * Description     Application can register Vendor-Specific HCI event callback
+ *
+ * @param[in]      cb       : callback function to register
+ *
+ * @return         WICED_SUCCESS
+ *                 WICED_ERROR if out of usage
+ */
+wiced_result_t wiced_bt_dev_register_vse_callback(wiced_bt_dev_vse_callback_t cb);
+
+/**
  * Function         wiced_bt_dev_link_quality_stats
  *
  * Description      This API is called to get the statistics for an ACL link
@@ -1812,6 +1865,85 @@ wiced_bt_dev_status_t wiced_bt_dev_set_afh_channel_classification(const wiced_bt
  */
 wiced_bt_dev_status_t wiced_bt_dev_link_quality_stats(BD_ADDR bda, wiced_bt_transport_t transport,
                 uint8_t action, wiced_bt_dev_cmpl_cback_t *p_cback);
+
+/**
+* Function         wiced_bt_dev_set_afh_channel_assessment
+*
+* This function is called to set the channel assessment mode on or off
+*
+* @param[in]       enable_or_disable :  Enable or disable AFH channel assessment
+*
+* @return          wiced_result_t
+*
+* Note:
+**/
+wiced_result_t wiced_bt_dev_set_afh_channel_assessment(wiced_bool_t enable_or_disable);
+
+/**
+ * wiced_bt_connect
+ *
+ * Connect with remote device
+ *
+ * @param[in]   remote_bd_addr - remote device's address
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_connect(wiced_bt_device_address_t remote_bd_addr);
+
+/**
+ * wiced_bt_start_authentication
+ *
+ * Start the authentication process with remote device
+ *
+ * @param[in]   bdaddr - remote device's address
+ * @param[in]   hci_handle - ACL connection's handle
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_start_authentication(wiced_bt_device_address_t bdaddr, uint16_t hci_handle);
+
+/**
+ * wiced_bt_start_encryption
+ *
+ * Start the encryption process with remote device
+ *
+ * @param[in]   bdaddr - remote device's address
+ *
+ * @return      WICED_TRUE: success
+ *              WICED_FALSE: fail
+ */
+wiced_bool_t wiced_bt_start_encryption(wiced_bt_device_address_t bdaddr);
+
+/**
+ * Function         wiced_bt_conn_handle_get
+ *
+ *                  Get the connection handle
+ *
+ * @param[in]       remote_bda      : remote device's address
+ * @param[in]       transport       : BT_TRANSPORT_BR_EDR or BT_TRANSPORT_LE
+ *
+ * @return          connection handle value
+ *                  0xffff for invalid
+ */
+uint16_t wiced_bt_conn_handle_get(wiced_bt_device_address_t remote_bda, wiced_bt_transport_t transport);
+
+/**
+ * Function         wiced_bt_dev_set_link_policy
+ *
+ *                  This function is called to set the Link Policy for remote device
+ *
+ * @param[in]       remote_bda      : remote device's address
+ * @param[in/out]   settings        : pointer to the settings value.
+ *                                    the policy setting is defined in hcidefs.h
+ *                                    if the input setting consists of unsupport feature
+ *                                    for local device, it will be cleared
+ *
+ * @return          wiced_result_t
+*/
+wiced_result_t wiced_bt_dev_set_link_policy(wiced_bt_device_address_t remote_bda,
+        uint16_t *settings);
 
 #ifdef __cplusplus
 }

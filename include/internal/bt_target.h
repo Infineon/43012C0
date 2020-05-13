@@ -2304,7 +2304,7 @@ Range: Minimum 12000 (12 secs) on BR/EDR when supporting PBF.
 #endif
 
 #ifndef HID_DEV_MAX_CONN_RETRY
-#define HID_DEV_MAX_CONN_RETRY      (1)
+#define HID_DEV_MAX_CONN_RETRY      (15)
 #endif
 
 #ifndef HID_DEV_REPAGE_WIN

@@ -31,9 +31,15 @@ extern uint8_t* g_dynamic_memory_MinAddress;
 extern uint8_t* g_aon_memory_manager_MinAddress;
 extern void install_libs(void);
 extern void application_start( void );
+extern void wiced_platform_init(void);
 
 //redefined here by refer to 20719B1.
 //#define micro_bcsIsNormalModeTransition()     boot_isWarmboot()
+__attribute__((section(".app_init_code"))) void application_start_internal( void )
+{
+    wiced_platform_init();
+    application_start();
+}
 
 /*****************************************************************
  *   Function: spar_setup()
@@ -97,11 +103,20 @@ void SPAR_CRT_SETUP(void)
 	install_libs();
 
     // Setup the application start function.
-	wiced_bt_set_app_start_function(application_start);
+	wiced_bt_set_app_start_function(application_start_internal);
 }
 #pragma arm section code
 
 #else
+
+/* WEAK application pre_init function. Will be called if not defined anywhere else */
+__attribute__((weak))
+void wiced_memory_pre_init(uint32_t enable)
+{
+
+}
+
+uint8_t g_wiced_memory_pre_init_enable __attribute__((weak)) = 0;
 
 __attribute__ ((section(".spar_setup")))
 void SPAR_CRT_SETUP(void)
@@ -139,7 +154,10 @@ void SPAR_CRT_SETUP(void)
     install_libs();
 
     // Setup the application start function.
-    wiced_bt_app_pre_init = application_start;
+    wiced_bt_app_pre_init = application_start_internal;
+
+    // Call Memory pre-initialization function (either the weak or the real (lib) one)
+    wiced_memory_pre_init(g_wiced_memory_pre_init_enable);
 }
 
 #endif
