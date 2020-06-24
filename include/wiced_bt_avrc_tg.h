@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -41,6 +41,17 @@
 
 #include "wiced_bt_cfg.h"
 #include "wiced_bt_avrc_defs.h"
+/****************************************************************************/
+/**
+ * AVRC remote control functions
+ *
+ * @addtogroup  wicedbt_avrc_tg       AVRCP Target Role (TG)
+ * @ingroup wicedbt_avrc
+ *
+ * @{
+ */
+/****************************************************************************/
+
 /******************************************************************************
  *                         Supported features
  ******************************************************************************/
@@ -316,5 +327,6 @@ uint8_t wiced_bt_avrc_tg_is_peer_absolute_volume_capable( void );
 *******************************************************************************/
 wiced_result_t wiced_bt_avrc_tg_volume_button_press(uint8_t op_id);
 
+/**@} wicedbt_avrc_tg */
 
 #endif /* WICED_BT_RC_TG_H_ */

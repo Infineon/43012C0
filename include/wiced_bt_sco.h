@@ -1,11 +1,34 @@
 /*
- * Copyright 2015, Cypress Semiconductor
- * All Rights Reserved.
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Cypress Semiconductor Corporation. All Rights Reserved.
  *
- * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Cypress Semiconductor;
- * the contents of this file may not be disclosed to third parties, copied
- * or duplicated in any form, in whole or in part, without the prior
- * written permission of Cypress Semiconductor.
+ * This software, including source code, documentation and related
+ * materials ("Software"), is owned by Cypress Semiconductor Corporation
+ * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products. Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -16,6 +39,23 @@
 #pragma once
 
 #include "wiced.h"
+/**
+ *  @addtogroup  sco_api_functions       Synchronous Connection Oriented (SCO) Channel
+ *  @ingroup     wicedbt_av
+ *
+ *  SCO Definitions and Functions
+ *
+ *  SCO logical transport, is a symmetric, point-to-point transport between
+ *  the master and a specific slave. The SCO logical transport reserves slots
+ *  and can therefore be considered as a circuit-switched connection between
+ *  the master and the slave. The master may support up to three SCO links to
+ *  the same slave or to different slaves. A slave may support up to three SCO
+ *  links from the same master, or two SCO links if the links originate from
+ *  different masters. SCO packets are never retransmitted.
+ *
+ *  @{
+ */
+
 /******************************************************
  *              Constants
  ******************************************************/
@@ -40,6 +80,7 @@
 typedef enum
 {
     WICED_BT_SCO_OVER_PCM = 0,   /**< [DEFAULT] PCM data config for routing over I2S/PCM interface */
+    WICED_BT_SCO_OVER_APP_CB     /**< PCM data config for routing over APP */
 }wiced_bt_sco_route_path_t;
 
 /******************************************************
@@ -57,20 +98,15 @@ typedef struct
 
 } wiced_bt_sco_params_t;
 
+/** Call back function for pcm data transfer, ltch_len = (length)<<8|(sco_channel) */
+typedef void (wiced_bt_sco_data_cb_t) (uint32_t ltch_len, uint8_t *p_data);
+
 /** SCO path config */
 typedef struct
 {
     wiced_bt_sco_route_path_t    path;           /**< sco routing path  0:pcm/i2s; 1: app*/
+    wiced_bt_sco_data_cb_t       *p_sco_data_cb; /**< If not NULL and route is APP_CB, callback function called for incoming pcm data */
 }wiced_bt_voice_path_setup_t;
-
-/**
- *  @addtogroup  sco_api_functions       Synchronous Connection Oriented (SCO) Channel
- *  @ingroup     wicedbt
- *
- *  SCO Functions
- *
- *  @{
- */
 
 /******************************************************
  *              Function Declarations
@@ -191,6 +227,20 @@ wiced_bt_dev_status_t wiced_bt_setup_voice_path(wiced_bt_voice_path_setup_t *pDa
 #define wiced_bt_sco_setup_voice_path wiced_bt_setup_voice_path
 
 /**
+ * Function         wiced_bt_sco_output_stream
+ *
+ * Send pcm data to internal audio pipe.
+ *
+ *
+ *  @param[in]  sco_index     : SCO index to send the stream
+ *  @param[in]  p_pcmsrc        : Audio stream source.
+ *  @param[in]  len             : Length of stream.
+ *
+ *  @return                     : Return the length of non transmitted stream.
+ */
+uint16_t wiced_bt_sco_output_stream( uint16_t sco_index, uint8_t* p_pcmsrc, uint16_t len);
+
+/**
  * Function         wiced_bt_sco_turn_off_pcm_clock
  *
  *                  The wiced_voice_path.a was required to include before we link this function.
@@ -201,7 +251,6 @@ wiced_bt_dev_status_t wiced_bt_setup_voice_path(wiced_bt_voice_path_setup_t *pDa
  */
 
 void  wiced_bt_sco_turn_off_pcm_clock( void );
-
 
 #ifdef __cplusplus
 }

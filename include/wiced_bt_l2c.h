@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -41,6 +41,7 @@
  * multiplexing capability and segmentation and reassembly operation.
  *
  *  @defgroup    l2cap   Logical Link Control and Adaptaion Protocol (L2CAP)
+ *  @ingroup     wicedbt
  *
  */
 #pragma once

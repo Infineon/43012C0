@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -58,15 +58,18 @@
 */
 
 /******************************************************************************
-*** Parameters.
-***
-*** The following parameters are used to configure the driver or define
-*** return status. They are not modifiable.
-******************************************************************************/
+ * Global Data Structure definitions                                          *
+ ******************************************************************************/
+
+/**
+* \addtogroup group_pwm_data_structures Structures
+* PWM Structures
+* \{
+*/
 
 /// PWM HW block has 6 PWM channels each with its own 16 bit counter.
 /// The first PWM channel is PWM0.
-enum
+typedef enum
 {
     PWM0  = 0,
     PWM1  = 1,
@@ -75,7 +78,7 @@ enum
     PWM4  = 4,
     PWM5  = 5,
     MAX_PWMS = 6
-};
+} PwmChannels;
 
 /// Clock used for PWM. When LHL_CLK is set, 128 KHz is used.
 /// PMU_CLK requires aclk to be configured first.
@@ -85,15 +88,23 @@ typedef enum
     PMU_CLK
 } PwmClockType;
 
+/// init count and toggle count for the PWM counters
 typedef struct{
     uint32_t init_count;
     uint32_t toggle_count;
 } wiced_pwm_config_t;
 
+/** \} group_pwm_data_structures */
+
 /******************************************************************************
-*** Function prototypes and defines.
+*** Global functions .
 ******************************************************************************/
 
+/**
+* \addtogroup group_pwm_functions Functions
+* PWM Functions
+* \{
+*/
 ///////////////////////////////////////////////////////////////////////////////
 /// Configures, enables, and starts the PWM to be active on a
 /// preconfigured GPIO pin.
@@ -213,6 +224,7 @@ void wiced_hal_pwm_configure_pin( uint8_t  pin, uint8_t PWM);
 ///////////////////////////////////////////////////////////////////////////////
 void wiced_hal_pwm_get_params( uint32_t clock_frequency_in, uint32_t duty_cycle, uint32_t pwm_frequency_out, wiced_pwm_config_t * params_out);
 
+/** \} group_pwm_functions */
 /* @} */
 
 #endif // __WICED_PWM_H__

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -42,7 +42,7 @@
 
 /**
  * \addtogroup  wiced_bt_ble BLE Host Stack Management
- * \ingroup     wiced_bt_ble
+ * \ingroup     wicedbt_DeviceManagement
  * \{
  *
  * BLE (Bluetooth Low Energy) Functions.

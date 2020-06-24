@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ * Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
  *
  * This software, including source code, documentation and related
@@ -45,7 +45,7 @@ extern "C" {
 
 /**
  * @addtogroup  wiced_bt_ams_api_functions        AMS Library API
- * @ingroup     wiced_bt_ams_api
+ * @ingroup     wicedbt
  *
  * AMS library of the WICED SDK provide a simple method for an application to integrate AMS
  * functionality.  The application needs to call API to initialize the library when it

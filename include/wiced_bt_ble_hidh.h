@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+ *  Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
  *  Cypress Semiconductor Corporation. All Rights Reserved.
  * 
  *  This software, including source code, documentation and related
@@ -42,8 +42,13 @@ extern "C" {
 #endif
 
 /**
+ * @addtogroup    wiced_bt_hid     Human Interface Device (HID)
+ * @ingroup     wicedbt
+*/
+
+/**
  * @addtogroup  wiced_bt_ble_hidh_api_functions   Human Interface Device Host Role (HIDH)
- * @ingroup     wiced_bt_ble_hidh_api
+ * @ingroup     wiced_bt_hid
  *
  * The Human Interface Device Host Role (HIDH) library of the WICED SDK provide a simple method
  * for an application to integrate HIDH functionality.

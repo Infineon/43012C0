@@ -4,10 +4,6 @@
 /*                                                                          */
 /*  Function:   this file contains HID protocol definitions                 */
 /*                                                                          */
-/*                                                                          */
-/*  Copyright (c) 2002-2004, WIDCOMM Inc., All Rights Reserved.             */
-/*  WIDCOMM Bluetooth Core. Proprietary and confidential.                   */
-/*                                                                          */
 /****************************************************************************/
 
 #ifndef HIDDEFS_H

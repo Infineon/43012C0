@@ -1,5 +1,5 @@
 /*
-* Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
+* Copyright 2016-2020, Cypress Semiconductor Corporation or a subsidiary of
 * Cypress Semiconductor Corporation. All Rights Reserved.
 *
 * This software, including source code, documentation and related
@@ -34,6 +34,8 @@
 /** @file
  *
  * @defgroup wiced_mail_box WICED MAIL Box feature
+ * @ingroup wicedsys
+ * @{
  */
 
 #pragma once
@@ -72,3 +74,4 @@ void wiced_mail_box_register_data_tx_complete_cback( wiced_mail_box_tx_complete_
  *  \return TRUE if successful, FALSE otherwise
  */
 wiced_bool_t wiced_mail_box_write_data(uint32_t data);
+/** @} */
