@@ -275,6 +275,16 @@ enum
 #endif
 typedef uint8_t wiced_bt_ble_sec_action_type_t;
 
+//TODO
+/** BLE connection parameteres */
+typedef struct
+{
+    uint8_t     role;
+    uint16_t    conn_interval;
+    uint16_t    conn_latency;
+    uint16_t    supervision_timeout;
+}wiced_bt_ble_conn_params_t;
+
 /**
  * Callback wiced_bt_ble_selective_conn_cback_t
  *
@@ -674,6 +684,24 @@ wiced_result_t wiced_bt_ble_read_adv_tx_power(wiced_bt_dev_cmpl_cback_t *p_cback
  *                  WICED_BT_UNSUPPORTED if does not have support
  */
 wiced_result_t wiced_bt_ble_set_channel_classification(const wiced_bt_ble_chnl_map_t ble_channel_map);
+
+//TODO
+/**
+ * Function         wiced_bt_gatt_ble_get_connection_parameters
+ *
+ *                  To read LE connection parameters based on connection address received in gatt connection up indication.
+ *
+ * @param[in]       remote_bda: remote device address.
+ * @param[in]       wiced_bt_ble_conn_params_t      - Connection Parameters
+ *
+ * @return          wiced_result_t
+ *
+ *                  WICED_BT_ILLEGAL_VALUE if p_conn_parameters is NULL.
+ *                  WICED_BT_UNKNOWN_ADDR  if device address is bad.
+ *                  WICED_BT_SUCCESS otherwise.
+ *
+ */
+wiced_result_t wiced_bt_ble_get_connection_parameters(wiced_bt_device_address_t bda, wiced_bt_ble_conn_params_t *p_conn_parameters);
 
 /**
  * Function         wiced_btm_get_private_bda

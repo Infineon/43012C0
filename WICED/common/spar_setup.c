@@ -134,12 +134,14 @@ void SPAR_CRT_SETUP(void)
 
 /* WEAK application pre_init function. Will be called if not defined anywhere else */
 __attribute__((weak))
-void wiced_memory_pre_init(uint32_t enable)
+void wiced_memory_pre_init(uint32_t enable, uint32_t max_ble_connections, uint32_t num_ble_whitlelist)
 {
 
 }
 
 uint8_t g_wiced_memory_pre_init_enable __attribute__((weak)) = 0;
+uint8_t g_wiced_memory_pre_init_max_ble_connections __attribute__((weak)) = 0;
+uint8_t g_wiced_memory_pre_init_num_ble_rl __attribute__((weak)) = 0;
 
 __attribute__ ((section(".spar_setup")))
 void SPAR_CRT_SETUP(void)
@@ -180,10 +182,9 @@ void SPAR_CRT_SETUP(void)
     wiced_bt_app_pre_init = application_start_internal;
 
     // Call Memory pre-initialization function (either the weak or the real (lib) one)
-    #if ENABLE_MEMORY_PRE_INIT
-    g_wiced_memory_pre_init_enable = 1;
-    #endif
-    wiced_memory_pre_init(g_wiced_memory_pre_init_enable);
+    wiced_memory_pre_init(  g_wiced_memory_pre_init_enable,
+                            g_wiced_memory_pre_init_max_ble_connections,
+                            g_wiced_memory_pre_init_num_ble_rl);
 }
 
 #endif

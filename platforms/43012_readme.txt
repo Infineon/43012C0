@@ -10,7 +10,7 @@ integrated 2.4 GHz transceiver supporting BR, EDR, and BLE.
 
 SDK Software Features
 ----------------------
-- Dual mode Bluetooth stack included the ROM (BR/EDR/BLE).
+- Dual mode Bluetooth stack included in the ROM (BR/EDR/BLE).
 - BT stack and profile level APIs for embedded BT application development.
 - WICED HCI protocol to simplify host/MCU application development.
 - APIs and drivers to access on board peripherals
@@ -91,6 +91,7 @@ UART
 ENABLE_DEBUG
     For HW debugging, see the document WICED-Hardware-Debugging.pdf for more
     information. Configuring this setting with value =1 configures GPIO for SWD.
+    CYW9M2BASE-43012BT: SWD hardware debugging is not supported.
 
 Downloading application to kit
 ------------------------------

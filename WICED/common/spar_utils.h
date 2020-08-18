@@ -48,7 +48,7 @@
 #define snprintf __2snprintf
 #endif
 
-#if ENABLE_DEBUG
+#if 0 // "#if ENABLE_DEBUG" when 43012C0 board supports it
 void wiced_hal_wdog_disable(void);
 unsigned int _tx_v7m_get_and_disable_int(void);
 void _tx_v7m_set_int(unsigned int posture);

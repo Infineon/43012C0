@@ -151,46 +151,6 @@ wiced_thread_t*  wiced_rtos_create_thread( void );
  */
 wiced_bool_t wiced_rtos_check_for_stack_overflow( void );
 
-/** Creates a new instance of queue
- *
- * Creates a new queue (Allocates memory for a new queue instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_queue_t*  wiced_rtos_create_queue( void );
-
-/** Creates a new instance of mutex
- *
- * Creates a new mutex (Allocates memory for a new mutex instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_mutex_t*  wiced_rtos_create_mutex( void );
-
-/** Creates a new instance of timer
- *
- * Creates a new timer (Allocates memory for a new timer instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_rtos_timer_t*  wiced_rtos_create_timer( void );
-
-/** Creates a new instance of semaphore
- *
- * Creates a new semaphore (Allocates memory for a new semaphore instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_semaphore_t*  wiced_rtos_create_semaphore( void );
-
 /** Creates a new instance of event flags
  *
  * Creates a new event_flag (Allocates memory for a new event flags instance and
@@ -200,16 +160,6 @@ wiced_semaphore_t*  wiced_rtos_create_semaphore( void );
  * @return    NULL          : if an error occurred
  */
 wiced_event_flags_t*  wiced_rtos_create_event_flags( void );
-
-/** Creates a new instance of worker thread
- *
- * Creates a new worker thread (Allocates memory for a new worker thread instance and
- * returns the pointer)
- *
- * @return    valid pointer : on success.
- * @return    NULL          : if an error occurred
- */
-wiced_worker_thread_t* wiced_rtos_create_worker_thread(void);
 
 /** Initializes and starts a new thread
  *
@@ -341,6 +291,17 @@ wiced_result_t wiced_rtos_check_stack( void );
 wiced_result_t wiced_rtos_init_semaphore( wiced_semaphore_t* semaphore );
 
 
+/** Creates a new instance of semaphore
+ *
+ * Creates a new semaphore (Allocates memory for a new semaphore instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_semaphore_t*  wiced_rtos_create_semaphore( void );
+
+
 /** Set (post/put/increment) a semaphore
  *
  * Set (post/put/increment) a semaphore
@@ -404,6 +365,17 @@ wiced_result_t wiced_rtos_deinit_semaphore( wiced_semaphore_t* semaphore );
  * @return    WICED_ERROR   : if an error occurred
  */
 wiced_result_t wiced_rtos_init_mutex( wiced_mutex_t* mutex );
+
+
+/** Creates a new instance of mutex
+ *
+ * Creates a new mutex (Allocates memory for a new mutex instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_mutex_t*  wiced_rtos_create_mutex( void );
 
 
 /** Obtains the lock on a mutex
@@ -470,6 +442,17 @@ wiced_result_t wiced_rtos_deinit_mutex( wiced_mutex_t* mutex );
  * @return    WICED_ERROR   : if an error occurred
  */
 wiced_result_t wiced_rtos_init_queue( wiced_queue_t* queue, const char* name, uint32_t message_size, uint32_t number_of_messages );
+
+
+/** Creates a new instance of queue
+ *
+ * Creates a new queue (Allocates memory for a new queue instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_queue_t*  wiced_rtos_create_queue( void );
 
 
 /** Pushes an object onto a queue
@@ -579,6 +562,17 @@ wiced_result_t wiced_rtos_get_queue_occupancy( wiced_queue_t* queue, uint32_t *c
 wiced_result_t wiced_rtos_init_timer( wiced_rtos_timer_t* timer, uint32_t time_ms, timer_handler_t function, void* arg );
 
 
+/** Creates a new instance of timer
+ *
+ * Creates a new timer (Allocates memory for a new timer instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_rtos_timer_t*  wiced_rtos_create_timer( void );
+
+
 /** Starts a RTOS timer running
  *
  * Starts a RTOS timer running. Timer must have been previously
@@ -640,6 +634,17 @@ wiced_result_t wiced_rtos_is_timer_running( wiced_rtos_timer_t* timer );
  * @return    WICED_ERROR   : if an error occurred
  */
 wiced_result_t wiced_rtos_init_worker_thread( wiced_worker_thread_t* worker_thread, uint8_t priority, uint32_t stack_size, uint32_t event_queue_size );
+
+
+/** Creates a new instance of worker thread
+ *
+ * Creates a new worker thread (Allocates memory for a new worker thread instance and
+ * returns the pointer)
+ *
+ * @return    valid pointer : on success.
+ * @return    NULL          : if an error occurred
+ */
+wiced_worker_thread_t* wiced_rtos_create_worker_thread(void);
 
 
 /** Deletes a worker thread
