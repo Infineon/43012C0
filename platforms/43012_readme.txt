@@ -1,12 +1,12 @@
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 BT SDK - CYW43012
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 Overview
 --------
-The Cypress CYW43012 is a 28nm ultra-low power dual-mode Bluetooth 5.0 wireless MCU
-WiFi + Bluetooth Combo device. It has a stand-alone baseband processor with an
-integrated 2.4 GHz transceiver supporting BR, EDR, and BLE.
+The Cypress CYW43012 is a 28nm ultra-low power dual-mode Bluetooth 5.0 wireless
+MCU WiFi + Bluetooth Combo device. It has a stand-alone baseband processor with
+an integrated 2.4 GHz transceiver supporting BR, EDR, and BLE.
 
 SDK Software Features
 ----------------------
@@ -15,16 +15,16 @@ SDK Software Features
 - WICED HCI protocol to simplify host/MCU application development.
 - APIs and drivers to access on board peripherals
 - Bluetooth protocols include GAP, GATT, SMP, RFCOMM, SDP
-- BLE and BR profile APIs, libraries and sample apps
+- BLE and BR profile APIs, libraries, and sample apps
 - Documentation for APIs, datasheet, profiles and features.
 
 Kits
 ----
 CYW9M2BASE-43012BT:
-    106 ball WLBGA package, Audio Arduino shield with on-board microphones, audio codec
-    chip, and headphone output, expansion header (J5) for direct access to BT GPIO,
-    i2S, and UART, user switches and LEDs, USB connector for power, programming
-    and USB-UART bridge.
+    106 ball WLBGA package, Audio Arduino shield with on-board microphones,
+    audio codec chip, headphone output, expansion header (J5) for direct access
+    to BT GPIO, i2S, UART, user switches and LEDs, and a USB connector for
+    power, programming, and USB-UART bridge.
     Note: Max UART baud rate is 3M
 
 Software Tools

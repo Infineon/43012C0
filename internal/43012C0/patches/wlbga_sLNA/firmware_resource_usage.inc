@@ -1,4 +1,7 @@
-# 43012C0 firmware build 173
-# patch entries used: 190 out of 192 elf patches, 98%
-CY_PATCH_ENTRIES_BASE=190
-# patch ram used: 63308 out of 64768 bytes, 97%
+# 43012C0 firmware build 211
+# patch entries used: 187 out of 192 elf patches, 97%
+CY_PATCH_ENTRIES_BASE=187
+# additional patch entries in these libraries:
+#   5 in wiced_audio_sink_lib.a
+#   3 in mesh_optimized_continuous_scan_lib.a
+# patch ram used: 61936 out of 64768 bytes, 95%

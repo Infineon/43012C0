@@ -262,6 +262,14 @@ typedef struct
     wiced_bt_device_address_t       rem_bda;            /**< Remote BD address */
 } wiced_bt_tx_power_result_t;
 
+/* Structure returned with switch role request */
+typedef struct
+{
+    uint8_t                         status;             /**< Status of the operation */
+    uint8_t                         role;               /**< BTM_ROLE_MASTER or BTM_ROLE_SLAVE */
+    wiced_bt_device_address_t       bd_addr;            /**< Remote BD address involved with the switch */
+} wiced_bt_dev_switch_role_result_t;
+
 /*****************************************************************************
  *  SECURITY MANAGEMENT
  *****************************************************************************/
@@ -1749,6 +1757,21 @@ wiced_result_t wiced_bt_dev_get_role( wiced_bt_device_address_t remote_bd_addr, 
 wiced_result_t wiced_bt_dev_switch_role( wiced_bt_device_address_t remote_bd_addr, UINT8 new_role, wiced_bt_dev_cmpl_cback_t *p_cback );
 
 /**
+ * Function     wiced_bt_dev_set_link_supervision_timeout
+ *
+ *              set Link Supervision Timeout
+ *
+ * @param[in]   remote_bd_addr   : BD address of remote device
+ * @param[in]   timeout          :
+ *
+ * @return      WICED_BT_PENDING if successfully initiated, otherwise error.
+ *
+ */
+wiced_result_t BTM_SetLinkSuperTout(wiced_bt_device_address_t remote_bd_addr, uint16_t timeout);
+#define wiced_bt_dev_set_link_supervision_timeout BTM_SetLinkSuperTout
+
+#if GATT_OVER_BREDR_INCLUDED == TRUE
+/**
  * Function         wiced_bt_dev_get_security_state
  *
  *                  Get security flags for the device
@@ -1760,6 +1783,7 @@ wiced_result_t wiced_bt_dev_switch_role( wiced_bt_device_address_t remote_bd_add
  *
  */
 wiced_bool_t wiced_bt_dev_get_security_state(wiced_bt_device_address_t bd_addr, uint8_t *p_sec_flags);
+#endif // #if GATT_OVER_BREDR_INCLUDED == TRUE
 
 /**
  * Function         wiced_bt_get_identity_address

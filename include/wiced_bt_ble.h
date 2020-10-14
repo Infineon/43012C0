@@ -285,6 +285,38 @@ typedef struct
     uint16_t    supervision_timeout;
 }wiced_bt_ble_conn_params_t;
 
+/*  Host preferences on PHY.    */
+
+/*  bit field that indicates the transmitter PHYs that
+    the Host prefers the Controller to use.Bit number 3 -7 reserved for future.*/
+#define BTM_BLE_PREFER_1M_PHY              0x01
+#define BTM_BLE_PREFER_2M_PHY              0x02
+#define BTM_BLE_PREFER_LELR_PHY            0x04
+typedef UINT8   wiced_bt_ble_host_phy_preferences_t;
+
+/*  The PHY_options parameter is a bit field that allows the Host to specify options
+    for LE long range PHY. Default connection is with no LELR.The Controller may override any
+    preferred coding (S2 coded phy for 512k speed LELR and s8 coded phy for 128K LELR) for
+    transmitting on the LE Coded PHY.
+    The Host may specify a preferred coding even if it prefers not to use the LE
+    Coded transmitter PHY since the Controller may override the PHY preference.
+    Bit 2-15 reserved for future use.
+Note:-  These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag gest set */
+#define BTM_BLE_PREFER_NO_LELR                         0x0000
+#define BTM_BLE_PREFER_LELR_125K                       0x0001
+#define BTM_BLE_PREFER_LELR_512K                       0x0002
+typedef UINT16  wiced_bt_ble_lelr_phy_preferences_t;
+
+/** Host PHY preferences */
+typedef struct
+{
+    wiced_bt_device_address_t               remote_bd_addr;     /**< Peer Device address */
+    wiced_bt_ble_host_phy_preferences_t     tx_phys;            /**< Host preference among the TX PHYs */
+    wiced_bt_ble_host_phy_preferences_t     rx_phys;            /**< Host preference among the RX PHYs */
+    wiced_bt_ble_lelr_phy_preferences_t     phy_opts;           /**< Host preference on LE coded PHY */
+    uint8_t                                 reserved;           /**< Reserved for future use */
+}wiced_bt_ble_phy_preferences_t;
+
 /**
  * Callback wiced_bt_ble_selective_conn_cback_t
  *
@@ -309,6 +341,17 @@ typedef wiced_bool_t (wiced_bt_ble_selective_conn_cback_t)(wiced_bt_device_addre
  * @return Nothing
  */
 typedef void (wiced_bt_ble_scan_result_cback_t) (wiced_bt_ble_scan_results_t *p_scan_result, uint8_t *p_adv_data);
+
+/**
+ * Callback wiced_bt_ble_read_phy_complete_callback_t
+ *
+ * read phy complete callback (from calling #wiced_bt_ble_read_phy)
+ *
+ * @param p_phy_result             : read phys result
+ *
+ * @return Nothing
+ */
+typedef void (wiced_bt_ble_read_phy_complete_callback_t) (wiced_bt_ble_phy_update_t *p_phy_result);
 
 /******************************************************
  *               Function Declarations
@@ -725,7 +768,67 @@ uint8_t *wiced_btm_get_private_bda(void);
  *                  WICED_BT_SUCCESS the identity of device address has been resolved.
  *                  WICED_BT_ERROR   otherwise.
  */
+
 wiced_result_t wiced_ble_private_device_address_resolution(wiced_bt_device_address_t rpa, BT_OCTET16 irk);
+
+/**
+ * Function         wiced_bt_ble_read_phy
+ *
+ *                  Host to read the current transmitter PHY and receiver PHY on
+ *                  the connection identified by the remote bdaddr.
+ *
+ *                  phy results notified using <b>p_read_phy_complete_callback</b>
+ *
+ * @param[in]       wiced_bt_device_address_t                   - remote device address
+ * @param[in]       wiced_bt_ble_read_phy_complete_callback_t   - read phy complete callback
+
+ * @return          wiced_result_t
+ *
+ *                  WICED_BT_SUCCESS is returned if the request was successfully sent to HCI.
+ *                  WICED_BT_UNKNOWN_ADDR  if device address does not correspond to a connected remote device
+ *                  WICED_BT_ILLEGAL_VALUE if p_read_phy_complete_callback is NULL
+ *                  WICED_BT_NO_RESOURCES if could not allocate resources to start the command
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_read_phy (wiced_bt_device_address_t remote_bd_addr,
+                        wiced_bt_ble_read_phy_complete_callback_t *p_read_phy_complete_callback);
+
+/**
+ * Function         wiced_bt_ble_set_default_phy
+ *
+ *                  Host to configure default transmitter phy and receiver phy to
+ *                  be used for all subsequent connections over the LE transport.
+ *
+ *
+ * @param[in]       wiced_bt_ble_phy_preferences_t      - Phy preferences
+ *
+ * Note : remote_bd_addr field of the phy_preferences is ignored.
+ *
+ * @return          wiced_result_t
+ *
+ *                  WICED_BT_SUCCESS is returned if the request was successfully sent to HCI.
+ *                  WICED_BT_ILLEGAL_VALUE if phy_preferences is NULL
+ *                  WICED_BT_NO_RESOURCES if could not allocate resources to start the command
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_set_default_phy (wiced_bt_ble_phy_preferences_t *phy_preferences);
+
+/**
+ * Function         wiced_bt_ble_set_phy
+ *
+ *                  Host to configure the LE link to 1M or 2M and LE coding to be used
+ *
+ * @param[in]       wiced_bt_ble_phy_preferences_t      - Phy preferences
+ *
+ * @return          wiced_result_t
+ *
+ *                  WICED_BT_SUCCESS is returned if the request was successfully sent to HCI.
+ *                  WICED_BT_ILLEGAL_VALUE if phy_preferences is NULL
+ *                  WICED_BT_UNKNOWN_ADDR if device address does not correspond to a connected remote device
+ *                  WICED_BT_NO_RESOURCES if could not allocate resources to start the command
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_set_phy (wiced_bt_ble_phy_preferences_t *phy_preferences);
 
 /**@} btm_ble_api_functions */
 

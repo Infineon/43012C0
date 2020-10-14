@@ -91,10 +91,12 @@ void wiced_bt_app_hal_led_on( void );
  */
 void wiced_bt_app_hal_led_off( void );
 
+#ifdef WICED_HAL_POWER_DOWN_FLASH_SUPPORT
 /**  Turns OFF Flash
  *
  * @return   WICED_TRUE if Success, else WICED_FALSE
  */
 wiced_bool_t wiced_bt_app_hal_power_down_flash( void );
+#endif // WICED_HAL_POWER_DOWN_FLASH_SUPPORT
 
 #endif //_WICED_BT_APP_HAL_COMMON_H_

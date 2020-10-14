@@ -339,6 +339,7 @@ wiced_bt_hidd_status_t wiced_bt_hidd_virtual_unplug(void);
 wiced_bt_hidd_status_t wiced_bt_hidd_send_data(wiced_bool_t control_ch, uint8_t rep_type,
                                                uint8_t *p_data, uint16_t data_len);
 
+#ifdef WICED_BT_HID_POWER_MANAGEMENT_SUPPORTED
 /**
  * Function         wiced_bt_hidd_set_power_mgmt_params
  *
@@ -352,6 +353,7 @@ wiced_bt_hidd_status_t wiced_bt_hidd_send_data(wiced_bool_t control_ch, uint8_t 
  */
 wiced_bt_hidd_status_t wiced_bt_hidd_set_power_mgmt_params(uint8_t conn_substate,
                                                            wiced_bt_hidd_pm_pwr_md_t pm_params);
+# endif // WICED_BT_HID_POWER_MANAGEMENT_SUPPORTED
 
 #ifdef __cplusplus
 }
