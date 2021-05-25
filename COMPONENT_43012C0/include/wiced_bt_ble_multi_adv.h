@@ -114,10 +114,10 @@ typedef uint8_t wiced_bt_ble_multi_advert_type_t;    /**< BLE advertisement type
 /** Multi-advertisement Filtering policy */
 enum wiced_bt_ble_multi_advert_filtering_policy_e
 {
-    MULTI_ADVERT_FILTER_POLICY_WHITE_LIST_NOT_USED                    = 0x00,   // white list not used
-    MULTI_ADVERT_WHITE_LIST_POLICY_ADV_ALLOW_UNKNOWN_CONNECTION       = 0x01,   // white list for scan request
-    MULTI_ADVERT_WHITE_LIST_POLICY_ADV_ALLOW_UNKNOWN_SCANNING         = 0x02,   // white list for connection request
-    MULTI_ADVERT_FILTER_POLICY_WHITE_LIST_USED_FOR_ALL                = 0x03
+    MULTI_ADVERT_FILTER_POLICY_FILTER_ACCEPT_LIST_NOT_USED                    = 0x00,   // Filter Accept List not used
+    MULTI_ADVERT_FILTER_ACCEPT_LIST_POLICY_ADV_ALLOW_UNKNOWN_CONNECTION       = 0x01,   // Filter Accept List for scan request
+    MULTI_ADVERT_FILTER_ACCEPT_LIST_POLICY_ADV_ALLOW_UNKNOWN_SCANNING         = 0x02,   // Filter Accept List for connection request
+    MULTI_ADVERT_FILTER_POLICY_FILTER_ACCEPT_LIST_USED_FOR_ALL                = 0x03
 };
 typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;    /**< BLE advertisement filtering policy (see #wiced_bt_ble_multi_advert_filtering_policy_e) */
 
@@ -163,7 +163,7 @@ wiced_result_t wiced_start_multi_advertisements( uint8_t advertising_enable, uin
  *         .adv_int_max = WICED_BT_CFG_DEFAULT_LOW_DUTY_ADV_MIN_INTERVAL,
  *         .adv_type = MULTI_ADVERT_NONCONNECTABLE_EVENT,
  *         .channel_map = BTM_BLE_DEFAULT_ADVERT_CHNL_MAP,
- *         .adv_filter_policy = MULTI_ADVERT_FILTER_POLICY_WHITE_LIST_NOT_USED,
+ *         .adv_filter_policy = MULTI_ADVERT_FILTER_POLICY_FILTER_ACCEPT_LIST_NOT_USED,
  *         .adv_tx_power = MULTI_ADV_TX_POWER_MAX,
  *         .peer_addr_type = BLE_ADDR_PUBLIC, //valid only for directed type
  *         .peer_bd_addr = NULL, //valid only for directed type

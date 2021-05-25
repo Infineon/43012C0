@@ -237,7 +237,7 @@ typedef struct wiced_bt_hidd_pwr_md
 
 /**
  *  @addtogroup  hidd_api_functions      HIDD over BR/EDR
- *  @ingroup     wiced_bt_hid
+ *  @ingroup     wicedbt
  *
  *  HIDD Functions
  *
