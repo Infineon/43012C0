@@ -196,7 +196,7 @@ typedef struct
     wiced_bt_flow_spec_t qos;               /**< QoS configuration */
     wiced_bool_t    flush_timeout_present;  /**< TRUE if flush option present */
     uint16_t        flush_timeout;          /**< Flush timeout value (1 msec increments) */
-    wiced_bool_t    fcr_present;            /**< TRUE if Enhanced retransmission & flow control option present */
+    uint8_t    fcr_present;            /**< TRUE if Enhanced retransmission & flow control option present */
     wiced_bt_l2cap_fcr_options_t fcr;       /**< Enhanced flow control and retransmission parameters */
     wiced_bool_t    fcs_present;            /**< TRUE if Frame check sequence option present */
     uint8_t         fcs;                    /**< '0' if desire is to bypass FCS, otherwise '1' */
@@ -329,7 +329,7 @@ typedef struct
     wiced_bt_flow_spec_t            qos;
     wiced_bool_t                    flush_timeout_present;
     uint16_t                        flush_timeout;
-    wiced_bool_t                    fcr_present;
+    uint8_t                    fcr_present;
     wiced_bt_l2cap_fcr_options_t    fcr;
     wiced_bool_t                    fcs_present;
     uint8_t                         fcs;            /**< '0' if desire is to bypass FCS, otherwise '1' */

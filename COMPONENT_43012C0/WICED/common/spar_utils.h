@@ -60,10 +60,9 @@ void _tx_v7m_set_int(unsigned int posture);
 
 /// Optionally waits in a pseudo while(1) until the user allows the CPU to continue
 #define BUSY_WAIT_TILL_MANUAL_CONTINUE_IF_DEBUG_ENABLED()     do{	\
-        volatile unsigned char spar_debug_continue;                 \
+        volatile unsigned char spar_debug_continue = 0;             \
         unsigned int interrupt_save = _tx_v7m_get_and_disable_int();\
         while(!spar_debug_continue);                                \
-		spar_debug_continue = 0;									\
         _tx_v7m_set_int(interrupt_save);                            \
 		}while(0)
 #else
