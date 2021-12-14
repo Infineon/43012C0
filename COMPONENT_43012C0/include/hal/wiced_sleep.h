@@ -32,7 +32,7 @@
  */
  /** @file
  *
- *  Defines functions for using the WICED Sleep Framework
+ *  Defines functions for using the AIROC Sleep Framework
  */
 
 #ifndef _WICED_SLEEP_H_

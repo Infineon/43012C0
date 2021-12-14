@@ -48,13 +48,16 @@
 #define snprintf __2snprintf
 #endif
 
-#if 0 // "#if ENABLE_DEBUG" when 43012C0 board supports it
+#if ENABLE_DEBUG
+#include "wiced_hal_gpio.h"
 void wiced_hal_wdog_disable(void);
 unsigned int _tx_v7m_get_and_disable_int(void);
 void _tx_v7m_set_int(unsigned int posture);
 
 /// When debugging is enabled, sets up the HW for debugging.
 #define SETUP_APP_FOR_DEBUG_IF_DEBUG_ENABLED()   do{		\
+		wiced_hal_gpio_select_function(CY_PLATFORM_SWDCK, WICED_SWDCK); \
+		wiced_hal_gpio_select_function(CY_PLATFORM_SWDIO, WICED_SWDIO); \
         wiced_hal_wdog_disable(); \
 	}while(0)
 

@@ -109,7 +109,7 @@ extern const wiced_bt_cfg_br_edr_scan_settings_t *wiced_bt_cfg_br_edr_scan_setti
 /** LE Scan settings */
 typedef struct
 {
-    wiced_bt_ble_scan_mode_t            scan_mode;                          /**< BLE scan mode (BTM_BLE_SCAN_MODE_PASSIVE, BTM_BLE_SCAN_MODE_ACTIVE) */
+    wiced_bt_ble_scan_mode_t            scan_mode;                          /**< LE scan mode (BTM_BLE_SCAN_MODE_PASSIVE, BTM_BLE_SCAN_MODE_ACTIVE) */
 
     /* Advertisement scan configuration */
     uint16_t                            high_duty_scan_interval;            /**< High duty scan interval (default: WICED_BT_CFG_DEFAULT_HIGH_DUTY_SCAN_INTERVAL) */
@@ -227,8 +227,8 @@ typedef struct
 
     /* Scan and advertisement configuration */
     wiced_bt_cfg_br_edr_scan_settings_t br_edr_scan_cfg;                /**< BR/EDR scan settings */
-    wiced_bt_cfg_ble_scan_settings_t    ble_scan_cfg;                   /**< BLE scan settings */
-    wiced_bt_cfg_ble_advert_settings_t  ble_advert_cfg;                 /**< BLE advertisement settings */
+    wiced_bt_cfg_ble_scan_settings_t    ble_scan_cfg;                   /**< LE scan settings */
+    wiced_bt_cfg_ble_advert_settings_t  ble_advert_cfg;                 /**< LE advertisement settings */
 
     /* GATT configuration */
     wiced_bt_cfg_gatt_settings_t        gatt_cfg;                       /**< GATT settings */
@@ -254,7 +254,7 @@ typedef struct
     /* Interval of  random address refreshing */
     uint16_t                            rpa_refresh_timeout;            /**< Interval of  random address refreshing - secs */
 
-    /* BLE Filter Accept List size */
+    /* LE Filter Accept List size */
     uint8_t                             ble_filter_accept_list_size;            /**< Maximum number of Filter Accept List devices allowed. Cannot be more than 128 */
 
 } wiced_bt_cfg_settings_t;
@@ -277,6 +277,8 @@ typedef struct {
     uint16_t                            buf_size;                       /**< size of buffers in the pool */
     uint16_t                            buf_count;                      /**< number of buffers in the pool */
 } wiced_bt_cfg_buf_pool_t;
+
+extern wiced_bt_cfg_buf_pool_t *p_btm_cfg_buf_pools;
 
 #ifdef __cplusplus
 } /* extern "C" */

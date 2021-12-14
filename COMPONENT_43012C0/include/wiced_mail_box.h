@@ -33,7 +33,7 @@
 
 /** @file
  *
- * @defgroup wiced_mail_box WICED MAIL Box feature
+ * @defgroup wiced_mail_box AIROC MAIL Box feature
  * @ingroup wicedsys
  * @{
  */
@@ -42,7 +42,7 @@
 
 /**
  * Mailbox feature enables apps to use GCI interface for communication between
- * BT and WiFi cores. Mail-box can be used to send/receive 32bits of data at a time.
+ * Bluetooth and WiFi cores. Mail-box can be used to send/receive 32bits of data at a time.
  */
 
 /** Mailbox Rx Callback prototype */

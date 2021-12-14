@@ -88,7 +88,7 @@ typedef enum
  ******************************************************/
 #define  WICED_BT_SCO_DATA_CB_GET_LENGTH(ltch_len)   ((ltch_len>>8)&0xff)	/**< SCO data callback length */
 
-/** Subset for the enhanced setup/accept synchronous connection paramters. See BT 4.1 or later HCI spec for details */
+/** Subset for the enhanced setup/accept synchronous connection paramters. See Bluetooth 4.1 or later HCI spec for details */
 typedef struct
 {
     uint16_t max_latency;                   /**< Maximum latency (0x4-0xFFFE in msecs) */

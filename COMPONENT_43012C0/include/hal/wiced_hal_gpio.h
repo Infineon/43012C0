@@ -152,6 +152,121 @@ enum
     GPIO_HYSTERESIS_OFF          = 0x0000,
 };
 
+//! possible functions to be brought out through LHL GPIO's
+typedef enum
+{
+    WICED_GPIO = 0,           /**< LHL GPIO (default functionality) */
+    WICED_I2C_1_SCL,          /**< I2C 1 Clock */
+    WICED_I2C_1_SDA,          /**< I2C 1 Data */
+    FCN_RESERVED_1,               /**< Reserved for Future */
+    FCN_RESERVED_2,               /**< Reserved for Future */
+    WICED_SPI_1_CLK,          /**< SPI 1 Clock */
+    WICED_SPI_1_CS,           /**< SPI 1 Chip Select */
+    WICED_SPI_1_MOSI,         /**< SPI 1 Master Out Slave In */
+    WICED_SPI_1_MISO,         /**< SPI 1 Slave In Master Out */
+    FCN_RESERVED_3,               /**< Reserved for Future */
+    FCN_RESERVED_4,               /**< Reserved for Future */
+    FCN_RESERVED_5,               /**< Reserved for Future */
+    FCN_RESERVED_6,               /**< Reserved for Future */
+    WICED_SPI_2_CLK,          /**< SPI 2 Clock */
+    WICED_SPI_2_CS,           /**< SPI 2 Chip Select */
+    WICED_SPI_2_MOSI,         /**< SPI 2 Master Out Slave In */
+    WICED_SPI_2_MISO,         /**< SPI 2 Slave In Master Out */
+    FCN_RESERVED_7,               /**< Reserved for Future */
+    FCN_RESERVED_8,               /**< Reserved for Future */
+    FCN_RESERVED_9,               /**< Reserved for Future */
+    FCN_RESERVED_10,               /**< Reserved for Future */
+    FCN_RESERVED_11,               /**< Reserved for Future */
+    FCN_RESERVED_12,               /**< Reserved for Future */
+    FCN_RESERVED_13,               /**< Reserved for Future */
+    FCN_RESERVED_14,               /**< Reserved for Future */
+    FCN_RESERVED_15,               /**< Reserved for Future */
+    WICED_SWDCK,              /**< SWD Clock */
+    WICED_SWDIO,              /**< SWD Data */
+    WICED_UART_1_TXD,         /**< HCI UART TX */
+    WICED_UART_1_RXD,         /**< HCI UART RX */
+    WICED_UART_1_CTS,         /**< HCI UART CTS */
+    WICED_UART_1_RTS,         /**< HCI UART RTS */
+    WICED_UART_2_TXD,         /**< PUART TX */
+    WICED_UART_2_RXD,         /**< PUART RX */
+    WICED_UART_2_CTS,         /**< PUART CTS */
+    WICED_UART_2_RTS,         /**< PUART RTS */
+    FCN_RESERVED_16,              /**< Reserved for Future */
+    FCN_RESERVED_17,              /**< Reserved for Future */
+    FCN_RESERVED_18,              /**< Reserved for Future */
+    FCN_RESERVED_19,              /**< Reserved for Future */
+    WICED_PCM_IN_I2S_DI,     /**< I2S 1 DATA IN */
+    WICED_PCM_OUT_I2S_DO,     /**< I2S 1 DATA OUT */
+    WICED_PCM_SYNC_I2S_WS,     /**< I2S 1 Word Select*/
+    WICED_PCM_CLK_I2S_CLK,    /**< I2S 1 Clock */
+    FCN_RESERVED_20,              /**< Reserved for Future */
+    FCN_RESERVED_21,              /**< Reserved for Future */
+    FCN_RESERVED_22,              /**< Reserved for Future */
+    FCN_RESERVED_23,              /**< Reserved for Future */
+    FCN_RESERVED_24,              /**< Reserved for Future */
+    FCN_RESERVED_25,              /**< Reserved for Future */
+    FCN_RESERVED_26,              /**< Reserved for Future */
+    FCN_RESERVED_27,              /**< Reserved for Future */
+    WICED_GCI_SECI_IN,        /**< GCI */
+    WICED_GCI_SECI_OUT,       /**< GCI */
+    WICED_ACLK_0,
+    WICED_ACLK_1,
+    WICED_KSO0,
+    WICED_KSO1,
+    WICED_KSO2,
+    WICED_KSO3,
+    WICED_KSO4,
+    WICED_KSO5,
+    WICED_KSO6,
+    WICED_KSO7,
+    WICED_KSO8,
+    WICED_KSO9,
+    WICED_KSO10,
+    WICED_KSO11,
+    WICED_KSO12,
+    WICED_KSO13,
+    WICED_KSO14,
+    WICED_KSO15,
+    WICED_KSO16,
+    WICED_KSO17,
+    WICED_KSO18,
+    WICED_KSO19,
+    WICED_TX_PD,
+    WICED_TX_PD_TILDA,
+    WICED_PA_RAMP,
+    WICED_PWM0,
+    WICED_PWM1,
+    WICED_PWM2,
+    WICED_PWM3,
+    WICED_PWM4,
+    WICED_PWM5,
+
+    // for core gpio
+    WICED_PCM_IN,     /**< I2S 1 DATA IN */
+    WICED_PCM_OUT,     /**< I2S 1 DATA OUT */
+    WICED_PCM_SYNC,     /**< I2S 1 Word Select*/
+    WICED_PCM_CLK,    /**< I2S 1 Clock */
+    WICED_I2S_DI,     /**< controller or responder I2S 1 DATA IN */
+    WICED_I2S_MDO,     /**< controller I2S 1 DATA OUT */
+    WICED_I2S_SDO,     /**< responder I2S 1 DATA OUT */
+    WICED_I2S_MWS,     /**< controller I2S 1 Word Select*/
+    WICED_I2S_SWS,     /**< responder I2S 1 Word Select*/
+    WICED_I2S_MCK,    /**< controller I2S 1 Clock */
+    WICED_I2S_SCK,    /**< responder I2S 1 Clock */
+
+    WICED_UNAVAILABLE = 0xFF  /**< Invalid functionality for error check */
+} wiced_bt_gpio_function_t;
+
+//! Possible return values from wiced_hal_gpio_select_function(...), Callers only need to check for the
+//! GPIO_FAILURE case since any other status means success
+typedef enum GPIO_STATUS_e
+{
+    GPIO_FAILURE, //!< The requested pin and function mapping is not supported by hardware
+    GPIO_SUCCESS, //!< The requested pin and function mapping is complete, The pin was previously not used and the function was previously not mapped
+    GPIO_REMAPPED,//!< The requested pin and function mapping is complete, The pin was previously used by another function, that function was disabled and the new function applied
+    GPIO_MOVED    //!< The requested pin and function mapping is complete, The requested function was already mapped to a different pin, that pin was disabled and the function moved to the new pin
+} wiced_bt_gpio_select_status_t;
+
 /******************************************************************************
 *** Function prototypes and defines.
 ******************************************************************************/
@@ -165,6 +280,10 @@ enum
 ///////////////////////////////////////////////////////////////////////////////
 #define PIN_TO_PORT(x) (x / 16)
 #define PIN_TO_PIN(x)  (x % 16)
+/*! GPIO Active Level HIGH */
+#define WICED_GPIO_ACTIVE_HIGH      1
+/*! GPIO Active Level LOW */
+#define WICED_GPIO_ACTIVE_LOW       0
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Initializes the GPIO driver and its private values.
@@ -442,7 +561,7 @@ typedef enum wiced_bt_gpio_numbers_e
     RESERVED,       /* ARM GPIO 12 - 52 */
     WICED_GPIO_13,  /* ARM GPIO 13 - 53 */
     WICED_GPIO_14,  /* ARM GPIO 14 - 54 */
-    RESERVED_1,     /* ARM GPIO 12 - 52 */
+    RESERVED_1,     /* ARM GPIO 15 - 55 */
     RESERVED_2,     /* WLAN GPIO 0 - 56 */
     WICED_WLAN_GPIO_01,  /* WLAN GPIO 1 - 57 */
     WICED_WLAN_GPIO_02,  /* WLAN GPIO 2 - 58 */
@@ -465,6 +584,16 @@ typedef enum wiced_bt_gpio_numbers_e
 // GPIO Active Levels HIGH / LOW
 #define WICED_GPIO_ACTIVE_HIGH      1
 #define WICED_GPIO_ACTIVE_LOW       0
+
+/**
+ *  \brief Configure a GPIO pin to have the chosen functionality.
+ *
+ *  \param [in] pin (0-39) (Only LHL GPIO supported for now)
+ *  \param [in] function Chosen functionality (refer wiced_bt_gpio_function_t for valid options)
+ *  \return refer wiced_bt_gpio_select_status_t for possible return status.
+ *
+ */
+wiced_bt_gpio_select_status_t wiced_hal_gpio_select_function(wiced_bt_gpio_numbers_t pin, wiced_bt_gpio_function_t function);
 
 /* @} */
 

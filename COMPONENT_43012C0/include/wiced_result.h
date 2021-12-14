@@ -54,16 +54,16 @@ extern "C" {
 
 /*************************************************************************/
 /**
- *  @addtogroup  Result     WICED Result Codes
+ *  @addtogroup  Result     AIROC Result Codes
  *  @ingroup     wicedsys
  *
- *  <b> WICED Result list </b> for Bluetooth BR/EDR and LE @b .
+ *  <b> AIROC Result list </b> for Bluetooth BR/EDR and LE @b .
  *
  *  @{
  */
 /*************************************************************************/
 
-/** WICED result list */
+/** AIROC result list */
 #define WICED_RESULT_LIST( prefix ) \
     RESULT_ENUM( prefix, SUCCESS,                       0x00 ),   /**< Success */                        \
     RESULT_ENUM( prefix, DELETED                       ,0x01 ),   \
@@ -135,7 +135,7 @@ extern "C" {
     RESULT_ENUM( prefix, ALREADY_INITIALIZED,           0x42),   /**< Already initialized*/ \
     RESULT_ENUM( prefix, FEATURE_NOT_ENABLED           ,0xFF ),   \
 
-/**@}  WICED result list */
+/**@}  AIROC result list */
 
 /******************************************************
  * @endcond    Enumerations
@@ -143,7 +143,7 @@ extern "C" {
 
 /*************************************************************************/
 /**
- *  @addtogroup  Result       WICED Result Codes
+ *  @addtogroup  Result       AIROC Result Codes
  *  @ingroup     wicedsys
  *
  *  <b> Result types</b>. @b
@@ -153,14 +153,14 @@ extern "C" {
  *  @{
  */
 /*************************************************************************/
-/** WICED result */
+/** AIROC result */
 typedef enum
 {
     WICED_RESULT_LIST(WICED_)
     BT_RESULT_LIST      (  WICED_BT_       )  /**< 8000 - 8999 */
 } wiced_result_t;
 
-/**@}  WICED Result */
+/**@}  AIROC Result */
 
 /******************************************************
  *            Structures

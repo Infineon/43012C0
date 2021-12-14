@@ -32,7 +32,7 @@
  */
 /** @file
  *
- *WICED BT App HAL Common Utilities
+ * AIROC BTSDK App HAL Common Utilities
  */
 #ifndef _WICED_BT_APP_HAL_COMMON_H_
 #define _WICED_BT_APP_HAL_COMMON_H_
@@ -46,7 +46,7 @@
  *                                                          Constants
  ******************************************************************************/
 
-/* Number of GPIOs that can be configured using the wiced bt app hal interface */
+/* Number of GPIOs that can be configured using the AIROC BTSDK app hal interface */
 #define GPIO_NUM_MAX        16
 
 /* GPIO flag bit (this is different than definition that used in gpio driver source code (GPIO_INPUT_ENABLE, etc) */
@@ -61,7 +61,7 @@
  *                                                          Function Prototypes
  ******************************************************************************/
 
-/**  Wiced BT App Common HAL Initialization
+/**  AIRCO BTSDK App Common HAL Initialization
  *
  * @return   None
  */

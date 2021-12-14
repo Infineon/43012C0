@@ -33,7 +33,7 @@
 
 /** @file
  *
- * WICED Bluetooth Low Energy (BLE) Functions
+ * AIROC Bluetooth Low Energy (LE) Functions
  *
  */
 #pragma once
@@ -76,7 +76,7 @@ enum wiced_bt_ble_advert_chnl_map_e
     BTM_BLE_ADVERT_CHNL_38  = (0x01 << 1),  /**< ADV channel */
     BTM_BLE_ADVERT_CHNL_39  = (0x01 << 2)   /**< ADV channel */
 };
-typedef uint8_t wiced_bt_ble_advert_chnl_map_t;  /**< BLE advertisement channel map (see #wiced_bt_ble_advert_chnl_map_e) */
+typedef uint8_t wiced_bt_ble_advert_chnl_map_t;  /**< LE advertisement channel map (see #wiced_bt_ble_advert_chnl_map_e) */
 
 /* default advertising channel map */
 #ifndef BTM_BLE_DEFAULT_ADVERT_CHNL_MAP
@@ -147,8 +147,8 @@ typedef uint8_t   wiced_bt_ble_advert_filter_policy_t;  /**< Advertising filter 
 
 #define BTM_BLE_DIR_CONN_FALLBACK   BTM_BLE_DIR_CONN_FALLBACK_UNDIR
 
-/** BLE Signature */
-#define BTM_BLE_AUTH_SIGNATURE_SIZE                 12                      /**< BLE data signature length 8 Bytes + 4 bytes counter*/
+/** LE Signature */
+#define BTM_BLE_AUTH_SIGNATURE_SIZE                 12                      /**< LE data signature length 8 Bytes + 4 bytes counter*/
 typedef uint8_t wiced_dev_ble_signature_t[BTM_BLE_AUTH_SIGNATURE_SIZE];     /**< Device address (see #BTM_BLE_AUTH_SIGNATURE_SIZE) */
 
 #define BTM_BLE_POLICY_REJECT_ALL                   0x00    /* relevant to both */
@@ -213,7 +213,7 @@ enum wiced_bt_ble_advert_type_e {
     BTM_BLE_ADVERT_TYPE_3D_INFO_DATA                = 0x3D,                 /**< 3D Information Data */
     BTM_BLE_ADVERT_TYPE_MANUFACTURER                = 0xFF                  /**< Manufacturer data */
 };
-typedef uint8_t   wiced_bt_ble_advert_type_t;    /**< BLE advertisement data type (see #wiced_bt_ble_advert_type_e) */
+typedef uint8_t   wiced_bt_ble_advert_type_t;    /**< LE advertisement data type (see #wiced_bt_ble_advert_type_e) */
 
 /** security settings used with L2CAP LE COC */
 enum wiced_bt_ble_sec_flags_e
@@ -276,7 +276,7 @@ enum
 typedef uint8_t wiced_bt_ble_sec_action_type_t;
 
 //TODO
-/** BLE connection parameteres */
+/** LE connection parameteres */
 typedef struct
 {
     uint8_t     role;
@@ -362,10 +362,10 @@ extern "C" {
 #endif
 
 /**
- * @addtogroup  btm_ble_api_functions        BLE (Bluetooth Low Energy)
+ * @addtogroup  btm_ble_api_functions        LE (Bluetooth Low Energy)
  * @ingroup     wicedbt_DeviceManagement
  *
- * BLE (Bluetooth Low Energy) Functions.
+ * LE (Bluetooth Low Energy) Functions.
  *
  * @{
  */
@@ -546,7 +546,7 @@ wiced_bool_t wiced_bt_ble_verify_signature (wiced_bt_device_address_t bd_addr, u
  *
  * Function         wiced_bt_ble_set_background_connection_type
  *
- *                  Set BLE background connection procedure type.
+ *                  Set LE background connection procedure type.
  *
  * @param[in]       conn_type: BTM_BLE_CONN_NONE, BTM_BLE_CONN_AUTO, or BTM_BLE_CONN_SELECTIVE
  * @param[in]       p_select_cback: callback for BTM_BLE_CONN_SELECTIVE
@@ -749,7 +749,7 @@ wiced_result_t wiced_bt_ble_get_connection_parameters(wiced_bt_device_address_t 
 /**
  * Function         wiced_btm_get_private_bda
  *
- *                  Acquire current BLE Resolvable Private Address
+ *                  Acquire current LE Resolvable Private Address
  *
  * @param[in]       None
  *
@@ -762,8 +762,8 @@ uint8_t *wiced_btm_get_private_bda(void);
  *
  *                  Private Device Address Resolution
  *
- * @param rpa       BLE Resolvable Private Address
- * @param irk       BLE IRK
+ * @param rpa       LE Resolvable Private Address
+ * @param irk       LE IRK
  * @return          wiced_result_t
  *                  WICED_BT_SUCCESS the identity of device address has been resolved.
  *                  WICED_BT_ERROR   otherwise.
@@ -863,7 +863,7 @@ wiced_result_t wiced_bt_dev_remove_device_from_address_resolution_db(wiced_bt_de
  *                  get le key mask from stored key information of nv ram
  *
  * @param[in]      bd_addr    : remote bd address
- * @param[out]      p_key_mask    : ble key mask stored
+ * @param[out]      p_key_mask    : le key mask stored
  *
  * @return          wiced_result_t
  *

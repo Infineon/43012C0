@@ -167,7 +167,7 @@ typedef uint8_t wiced_bt_l2cap_chnl_data_rate_t;
  ****************************************************************************/
 
 /** Structure for Enhanced Retransmission Mode Options
- *  Refer to Volume 3, Part A, section 5.4 of BT Core specification for details */
+ *  Refer to Volume 3, Part A, section 5.4 of Bluetooth Core specification for details */
 typedef struct
 {
 #define L2CAP_FCR_BASIC_MODE    0x00
@@ -185,7 +185,7 @@ typedef struct
 /** Define a structure to hold the configuration parameters. Since the
 *   parameters are optional, for each parameter there is a boolean to
 *   use to signify its presence or absence.
- *  Refer to Volume 3, Part A, section 5.4 of BT Core specification for details
+ *  Refer to Volume 3, Part A, section 5.4 of Bluetooth Core specification for details
 */
 typedef struct
 {
@@ -1029,7 +1029,7 @@ uint8_t wiced_bt_l2cap_get_chnl_fcr_mode (uint16_t lcid);
  *
  *  Function        wiced_bt_l2cap_cancel_ble_connect_req
  *
- *                  Cancel a pending connection attempt to a BLE device.
+ *                  Cancel a pending connection attempt to a LE device.
  *
  *  @param[in]      rem_bda: BD Address of remote
  *
@@ -1043,7 +1043,7 @@ wiced_bool_t wiced_bt_l2cap_cancel_ble_connect_req (wiced_bt_device_address_t re
  *
  *  Function        wiced_bt_l2cap_update_ble_conn_params
  *
- *                  Update BLE connection parameters.
+ *                  Update LE connection parameters.
  *
  *  @param[in]      rem_bdRa: Remote BD Address
  *  @param[in]      min_int: Min interval
@@ -1061,7 +1061,7 @@ wiced_bool_t wiced_bt_l2cap_update_ble_conn_params (wiced_bt_device_address_t re
  *
  *  Function        wiced_bt_l2cap_enable_update_ble_conn_params
  *
- *                  Update BLE connection parameters.
+ *                  Update LE connection parameters.
  *
  *  @param[in]      rem_bda: Remote Bd Address
  *  @param[in]      enable: Enable Flag

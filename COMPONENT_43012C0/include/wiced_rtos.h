@@ -116,7 +116,7 @@ extern wiced_worker_thread_t wiced_networking_worker_thread;
 /*****************************************************************************/
 /** @defgroup rtos       RTOS
  *
- *  WICED Real-Time Operating System Functions
+ *  AIROC Real-Time Operating System Functions
  */
 /*****************************************************************************/
 
@@ -432,7 +432,7 @@ wiced_result_t wiced_rtos_unlock_mutex( wiced_mutex_t* mutex );
 
 
 #ifdef WICED_RTOS_D
-** De-initialise a mutex
+/* De-initialise a mutex
  *
  * Deletes a mutex created with @ref wiced_rtos_init_mutex
  *

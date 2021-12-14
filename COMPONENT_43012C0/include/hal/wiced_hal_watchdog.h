@@ -117,7 +117,7 @@ wiced_bool_t wiced_watchdog_get_reset_reason(void);
 ///////////////////////////////////////////////////////////////////////////////
 ///// API to configure gpio and its active level to be set on WDT expiry
 /////
-///// \param [in] gpio BT GPIO to be asserted before watchdog reset(only WICED_GPIO_00 - WICED_GPIO_15 are valid).
+///// \param [in] gpio BT_GPIO to be asserted before watchdog reset(only WICED_GPIO_00 - WICED_GPIO_15 are valid).
 ///// \param [in] active_level WICED_GPIO_ACTIVE_LOW/WICED_GPIO_ACTIVE_HIGH
 /////
 ///// \return WICED_SUCCESS - if GPIO is configured sucessfully, else WICED_BADARG.

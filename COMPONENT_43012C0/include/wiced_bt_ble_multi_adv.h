@@ -41,11 +41,11 @@
 #define MULTI_ADV_H
 
 /**
- * \addtogroup  wiced_bt_ble BLE Host Stack Management
+ * \addtogroup  wiced_bt_ble LE Host Stack Management
  * \ingroup     wicedbt_DeviceManagement
  * \{
  *
- * BLE (Bluetooth Low Energy) Functions.
+ * LE (Bluetooth Low Energy) Functions.
  *
  * \defgroup group_ble_macro Macro
  * \defgroup group_ble_data_structures Data Structures
@@ -109,7 +109,7 @@ enum wiced_bt_ble_multi_advert_type_e
     MULTI_ADVERT_NONCONNECTABLE_EVENT               = 0x03,
     MULTI_ADVERT_LOW_DUTY_CYCLE_DIRECT_EVENT        = 0x04
 };
-typedef uint8_t wiced_bt_ble_multi_advert_type_t;    /**< BLE advertisement type (see #wiced_bt_ble_multi_advert_type_e) */
+typedef uint8_t wiced_bt_ble_multi_advert_type_t;    /**< LE advertisement type (see #wiced_bt_ble_multi_advert_type_e) */
 
 /** Multi-advertisement Filtering policy */
 enum wiced_bt_ble_multi_advert_filtering_policy_e
@@ -119,7 +119,7 @@ enum wiced_bt_ble_multi_advert_filtering_policy_e
     MULTI_ADVERT_FILTER_ACCEPT_LIST_POLICY_ADV_ALLOW_UNKNOWN_SCANNING         = 0x02,   // Filter Accept List for connection request
     MULTI_ADVERT_FILTER_POLICY_FILTER_ACCEPT_LIST_USED_FOR_ALL                = 0x03
 };
-typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;    /**< BLE advertisement filtering policy (see #wiced_bt_ble_multi_advert_filtering_policy_e) */
+typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;    /**< LE advertisement filtering policy (see #wiced_bt_ble_multi_advert_filtering_policy_e) */
 
 /** \} group_ble_enums */
 

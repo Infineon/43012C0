@@ -114,7 +114,7 @@ typedef struct {
  * @{
  */
 #define BT_TRANSPORT_BR_EDR         1       /**< BR/EDR transport */
-#define BT_TRANSPORT_LE             2       /**< BLE transport */
+#define BT_TRANSPORT_LE             2       /**< LE transport */
 typedef uint8_t wiced_bt_transport_t;       /**< Transport type (see @ref WICED_BT_TRANSPORT_TYPE "BT Transport Types") */
 
 /**
@@ -137,7 +137,7 @@ typedef uint8_t wiced_bt_device_type_t;     /**< Bluetooth device type (see @ref
 #define BLE_ADDR_RANDOM             0x01        /**< Random address */
 #define BLE_ADDR_PUBLIC_ID          0x02        /**< Public ID      */
 #define BLE_ADDR_RANDOM_ID          0x03        /**< Random ID      */
-typedef uint8_t wiced_bt_ble_address_type_t;    /**< BLE device address type (see @ref WICED_BT_ADDR_TYPE "BT Address Types")*/
+typedef uint8_t wiced_bt_ble_address_type_t;    /**< LE device address type (see @ref WICED_BT_ADDR_TYPE "BT Address Types")*/
 #define BLE_ADDR_TYPE_MASK          (BLE_ADDR_RANDOM | BLE_ADDR_PUBLIC)
 /** @} WICED_BT_ADDR_TYPE */
 

@@ -131,6 +131,7 @@ void SPAR_CRT_SETUP(void)
 #pragma arm section code
 
 #else
+void patch_autoInstall(UINT32 old_address, UINT32 new_address);
 
 /* WEAK application pre_init function. Will be called if not defined anywhere else */
 __attribute__((weak))
@@ -171,9 +172,6 @@ void SPAR_CRT_SETUP(void)
         g_aon_memory_manager_MinAddress = (char*)(&aon_iram_end);
     }
 #endif
-    // default attach point for jtag if ENABLE_DEBUG
-    SETUP_APP_FOR_DEBUG_IF_DEBUG_ENABLED();
-    BUSY_WAIT_TILL_MANUAL_CONTINUE_IF_DEBUG_ENABLED();
 
     // Install included libraries and patches if any
     install_libs();
