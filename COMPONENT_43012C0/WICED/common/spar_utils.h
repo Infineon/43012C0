@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -54,13 +54,19 @@ void wiced_hal_wdog_disable(void);
 unsigned int _tx_v7m_get_and_disable_int(void);
 void _tx_v7m_set_int(unsigned int posture);
 
+#define cr_pad_fcn_ctl_ajtag_adr    0x00320218
+#define cr_dap_clk_sel_adr          0x0032014c
+
 /// When debugging is enabled, sets up the HW for debugging.
 #define SETUP_APP_FOR_DEBUG_IF_DEBUG_ENABLED()   do{		\
-		wiced_hal_gpio_select_function(CY_PLATFORM_SWDCK, WICED_SWDCK); \
-		wiced_hal_gpio_select_function(CY_PLATFORM_SWDIO, WICED_SWDIO); \
+        wiced_hal_gpio_select_function(CY_PLATFORM_SWDCK, WICED_SWDCK); \
+        wiced_hal_gpio_select_function(CY_PLATFORM_SWDIO, WICED_SWDIO); \
+        REG32(cr_dap_clk_sel_adr) &= ~0x1f8; \
+        REG32(cr_dap_clk_sel_adr) |=  0x90; \
+        REG32(cr_pad_fcn_ctl_ajtag_adr) &=  ~0xff00; \
+        REG32(cr_pad_fcn_ctl_ajtag_adr) |=  0x4400; \
         wiced_hal_wdog_disable(); \
 	}while(0)
-
 /// Optionally waits in a pseudo while(1) until the user allows the CPU to continue
 #define BUSY_WAIT_TILL_MANUAL_CONTINUE_IF_DEBUG_ENABLED()     do{	\
         volatile unsigned char spar_debug_continue = 0;             \

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -243,6 +243,15 @@ typedef struct
     uint32_t                        eir_uuid[BTM_EIR_SERVICE_ARRAY_SIZE];   /**< Array or EIR UUIDs */
     wiced_bool_t                    eir_complete_list;                      /**< TRUE if EIR array is complete */
 } wiced_bt_dev_inquiry_scan_result_t;
+
+/** Structure returned with remote name  request */
+typedef struct
+{
+    uint16_t                            status;                                /**< Status of the operation */
+    wiced_bt_device_address_t           bd_addr;                               /**< Remote BD address */
+    uint16_t                            length;                                /**< Device name Length */
+    wiced_bt_remote_name_t              remote_bd_name;                        /**< Remote device name */
+} wiced_bt_dev_remote_name_result_t;
 
 /** RSSI Result (in response to #wiced_bt_dev_read_rssi) */
 typedef struct
@@ -1101,6 +1110,16 @@ typedef void (wiced_bt_dev_vendor_specific_command_complete_cback_t) (wiced_bt_d
  */
 typedef void (wiced_bt_dev_vse_callback_t)(uint8_t len, uint8_t *p);
 
+/**
+ * Remote name result callback
+ *
+ * @param p_remote_name_result : Remote name result data
+ *
+ * @return Nothing
+ *
+ */
+typedef void (wiced_bt_remote_name_cback_t) (wiced_bt_dev_remote_name_result_t *p_remote_name_result);
+
 /******************************************************
  *               Function Declarations
  ******************************************************/
@@ -1286,7 +1305,6 @@ wiced_result_t wiced_bt_dev_set_sniff_mode (wiced_bt_device_address_t remote_bda
                                              uint16_t max_period, uint16_t attempt,
                                              uint16_t timeout);
 
-
 /**
  * Function         wiced_bt_dev_cancel_sniff_mode
  *
@@ -1298,7 +1316,6 @@ wiced_result_t wiced_bt_dev_set_sniff_mode (wiced_bt_device_address_t remote_bda
  *
  */
 wiced_result_t wiced_bt_dev_cancel_sniff_mode (wiced_bt_device_address_t remote_bda);
-
 
 /**
  *
@@ -1374,6 +1391,26 @@ wiced_result_t wiced_bt_dev_read_tx_power (wiced_bt_device_address_t remote_bda,
  *
  */
 wiced_result_t wiced_bt_dev_write_eir (uint8_t *p_buff, uint16_t len);
+
+/******************************************************************************
+* Function Name: wiced_bt_dev_get_remote_name
+***************************************************************************//**
+*
+* Gets the BT Friendly name from the remote device.
+*
+* \param[in] bd_addr                                Peer BD address
+* \param[in] p_remote_name_result_cback             remote name result callback
+*
+* \return
+*  - WICED_BT_PENDING if successfully initiated
+*  - WICED_BT_BUSY if already in progress
+*  - WICED_BT_ILLEGAL_VALUE if parameter(s) are out of range
+*  - WICED_BT_NO_RESOURCES if could not allocate resources to start the command
+*  - WICED_BT_WRONG_MODE if the device is not up.
+*
+******************************************************************************/
+wiced_result_t  wiced_bt_dev_get_remote_name( wiced_bt_device_address_t bd_addr,
+                                              wiced_bt_remote_name_cback_t *p_remote_name_result_cback );
 
 /**@} wicedbt_bredr */
 
@@ -1977,6 +2014,16 @@ wiced_result_t wiced_bt_set_device_class(wiced_bt_dev_class_t dev_class);
  *                  WICED_BT_NO_RESOURCES   no resources to issue command
  */
 wiced_result_t wiced_bt_dev_set_local_name( char* p_name );
+
+/*
+ *  Function        wiced_bt_dev_lrac_disable_secure_connection
+ *
+ *  Disable BT secure connection
+ *
+ *  This utility shall be called before the bt stack is initialized
+ *  (by calling app_bt_init()).
+ */
+void wiced_bt_dev_lrac_disable_secure_connection(void);
 
 #ifdef __cplusplus
 }

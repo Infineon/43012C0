@@ -1,5 +1,5 @@
 #
-# Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+# Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
 # an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 #
 # This software, including source code, documentation and related
@@ -126,9 +126,9 @@ CY_CORE_DEFINES+=\
 
 CY_CORE_EXTRA_DEFINES=\
 	-DWICED_SDK_MAJOR_VER=3 \
-	-DWICED_SDK_MINOR_VER=2 \
+	-DWICED_SDK_MINOR_VER=3 \
 	-DWICED_SDK_REV_NUMBER=0 \
-	-DWICED_SDK_BUILD_NUMBER=20467
+	-DWICED_SDK_BUILD_NUMBER=23146
 
 #
 # Set the output file paths
@@ -144,7 +144,7 @@ endif
 #
 # declare configurator support conditionally for all boards
 ifneq ($(LIBNAME),BTSDK_TopLevel)
-CY_SUPPORTED_TOOL_TYPES+=bt-configurator
+CY_SUPPORTED_TOOL_TYPES+=bt-configurator device-configurator
 endif
 
 # hint for bt-configurator
@@ -330,3 +330,20 @@ CY_ECLIPSE_ARGS="s|&&CY_OPENOCD_ARG&&|$(CY_OPENOCD_ARG)|g;"\
                 "s|&&CY_APPNAME&&|$(CY_IDE_PRJNAME)|g;"\
                 "s|&&CY_PROG_FILE&&|$(CY_APP_ELF_FILE)|g;"\
                 "s|&&CY_ECLIPSE_GDB&&|$(CY_ECLIPSE_GDB)|g;"
+
+DEVICE_GEN?=$(DEVICE)
+
+# Command for updating the device(s) (Note: this doesn't get expanded and used until "bsp" target)
+CY_BSP_DEVICES_CMD=\
+	designFile=$$($(CY_FIND) $(CY_TARGET_GEN_DIR) -name *.modus);\
+	if [[ $$designFile ]]; then\
+		echo "Running device-configurator for $(DEVICE_GEN)...";\
+		$(CY_CONFIG_MODUS_EXEC)\
+		$(CY_CONFIG_LIBFILE)\
+		--build $$designFile\
+		--set-device=$(subst $(CY_SPACE),$(CY_COMMA),$(DEVICE_GEN));\
+		cfgStatus=$$(echo $$?);\
+		if [ $$cfgStatus != 0 ]; then echo "ERROR: Device-configuration failed for $$designFile"; exit $$cfgStatus; fi;\
+	else\
+		echo "Could not detect .modus file. Skipping update...";\
+	fi;

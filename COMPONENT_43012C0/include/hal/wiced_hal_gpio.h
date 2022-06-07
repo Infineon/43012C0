@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -241,18 +241,51 @@ typedef enum
     WICED_PWM4,
     WICED_PWM5,
 
-    // for core gpio
-    WICED_PCM_IN,     /**< I2S 1 DATA IN */
-    WICED_PCM_OUT,     /**< I2S 1 DATA OUT */
-    WICED_PCM_SYNC,     /**< I2S 1 Word Select*/
-    WICED_PCM_CLK,    /**< I2S 1 Clock */
-    WICED_I2S_DI,     /**< controller or responder I2S 1 DATA IN */
-    WICED_I2S_MDO,     /**< controller I2S 1 DATA OUT */
-    WICED_I2S_SDO,     /**< responder I2S 1 DATA OUT */
-    WICED_I2S_MWS,     /**< controller I2S 1 Word Select*/
-    WICED_I2S_SWS,     /**< responder I2S 1 Word Select*/
-    WICED_I2S_MCK,    /**< controller I2S 1 Clock */
-    WICED_I2S_SCK,    /**< responder I2S 1 Clock */
+    // for core gpio, each pin has a few functions selected by value 0-15
+    BT_HOST_WAKE_PDM_CH2    = 5,
+    BT_GPIO_0_PDM_CH1       = 5,
+    BT_GPIO_2_I2S_DI        = 4,
+    BT_GPIO_2_PDM_CLK       = 15,
+    BT_GPIO_3_I2S_MWS       = 3,
+    BT_GPIO_3_I2S_SWS       = 4,
+    BT_GPIO_4_I2S_MDO       = 3,
+    BT_GPIO_4_I2S_SDO       = 4,
+    BT_GPIO_4_UART2_RTS     = 11,
+    BT_GPIO_4_I2C_SDA       = 15,
+    BT_GPIO_5_I2S_MCK       = 3,
+    BT_GPIO_5_I2S_SCK       = 4,
+    BT_GPIO_5_UART2_CTS     = 11,
+    BT_GPIO_5_I2C_SCL       = 15,
+    BT_I2S_CLK_PCM_CLK      = 1,
+    BT_I2S_CLK_I2S_MCK      = 5,
+    BT_I2S_CLK_I2S_SCK      = 7,
+    BT_I2S_CLK_UART2_TXD    = 11,
+    BT_I2S_DI_PCM_IN        = 1,
+    BT_I2S_DI_I2S_DI        = 4,
+    BT_I2S_DI_UART2_CTS     = 11,
+    BT_I2S_DI_I2C_SDA       = 13,
+    BT_I2S_DO_PCM_OUT       = 1,
+    BT_I2S_DO_I2S_SDO       = 4,
+    BT_I2S_DO_I2S_MDO       = 5,
+    BT_I2S_DO_UART2_RTS     = 11,
+    BT_I2S_DO_I2C_SCL       = 12,
+    BT_I2S_WS_PCM_SYNC      = 1,
+    BT_I2S_WS_I2S_MWS       = 5,
+    BT_I2S_WS_I2S_SWS       = 7,
+    BT_I2S_WS_UART2_RXD     = 11,
+    BT_PCM_CLK_PCM_CLK      = 1,
+    BT_PCM_CLK_I2S_MCK      = 5,
+    BT_PCM_CLK_I2S_SCK      = 7,
+    BT_PCM_IN_PCM_IN        = 1,
+    BT_PCM_IN_I2S_DI        = 7,
+    BT_PCM_IN_I2C_SCL       = 12,
+    BT_PCM_OUT_PCM_OUT      = 1,
+    BT_PCM_OUT_I2S_MDO      = 5,
+    BT_PCM_OUT_I2S_SDO      = 7,
+    BT_PCM_OUT_I2C_SDA      = 12,
+    BT_PCM_SYNC_PCM_SYNC    = 1,
+    BT_PCM_SYNC_I2S_MWS     = 5,
+    BT_PCM_SYNC_I2S_SWS     = 7,
 
     WICED_UNAVAILABLE = 0xFF  /**< Invalid functionality for error check */
 } wiced_bt_gpio_function_t;

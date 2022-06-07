@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -94,6 +94,7 @@ typedef struct{
     uint32_t toggle_count;
 } wiced_pwm_config_t;
 
+typedef wiced_pwm_config_t pwm_config_t;
 /** \} group_pwm_data_structures */
 
 /******************************************************************************
