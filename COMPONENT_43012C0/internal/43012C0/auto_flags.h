@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -609,7 +609,7 @@
 #undef  BT_SLIMBUS
 
 /*
- * BT LE Over WLAN (BLOW) configuration, this option depends on TBFC.
+ * Bluetooth LE Over WLAN (BLOW) configuration, this option depends on TBFC.
  */
 #undef  BT_LE_OVER_WLAN
 
@@ -639,7 +639,6 @@
 #define MPAF_AON_DRIVER_ENABLE 1
 #define MPAF_DRIVERS_ENABLE 1
 #undef  MPAF_DRIVERS_20703_ENABLE
-#undef  MPAF_DRIVERS_20735_ENABLE
 #undef  MPAF_DRIVERS_20739_ENABLE
 #undef  MPAF_DRIVERS_THERMAL_ENABLE
 #undef  I2C_SLAVE
@@ -647,7 +646,7 @@
 #define MPAF_KEEP_CODE_ENABLE 1
 
 /*
- * BT/LE Stack Features (Application Framework)
+ * Bluetooth Classic/LE Stack Features (Application Framework)
  */
 #undef  MPAF_DISABLE_BR_EDR
 #undef  MPAF_OTAFWU

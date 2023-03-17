@@ -1,5 +1,4 @@
-------------------------------------------------------------------------------------
-# BTSDK - CYW43012
+# AIROC&#8482; BTSDK - CYW43012
 
 ## Overview
 
@@ -33,5 +32,3 @@ will produce a .hcd image file, and the application 'make program' target can be
 
 If you have issues downloading to the kit, power cycle the kit to boot from the ROM
 image.
-
-------------------------------------------------------------------------------------

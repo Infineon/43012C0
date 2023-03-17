@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -90,7 +90,7 @@
 /* Define the PSM that SDP uses */
 #define SDP_PSM     0x0001
 
-/* Legacy #define to avoid code changes - SDP UUID is same as BT UUID */
+/* Legacy #define to avoid code changes - SDP UUID is same as Bluetooth UUID */
 #define tSDP_UUID   tBT_UUID
 
 /* Masks for attr_value field of tSDP_DISC_ATTR */

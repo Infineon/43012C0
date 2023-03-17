@@ -1,5 +1,5 @@
 # DO NOT EDIT MANUALLY! FW2 VERSION
-# Automatically generated on Tue May 24 11:25:04 2022 from firmware 0.0.0
+# Automatically generated on Thu Sep 15 17:12:50 2022 from firmware 0.0.0
 SECTION "Config Data Entries" 0
 {
      COMMAND "Config layout" 0x0100
@@ -6107,7 +6107,7 @@ SECTION "Config Data Entries" 0
                  "much time before it actually turning off the radio.";
      }
 
-	  COMMAND "3D Parameters" 0x31C
+          COMMAND "3D Parameters" 0x31C
         {
             doc "3D Parameters."
             PARAM "Duty Cycle"

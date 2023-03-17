@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -47,7 +47,7 @@ void * mpaf_memset (void * ptr, int value, int num );
 void * mpaf_memmove ( void * destination, const void * source, int num );
 
 
-/*MPAF bt stack configuration*/
+/*MPAF Bluetooth stack configuration*/
 #ifdef MPAF_BT_STACK_ENABLE
 
 #define BR_INCLUDED         TRUE

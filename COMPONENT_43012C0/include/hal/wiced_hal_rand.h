@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -63,7 +63,7 @@
 /// Generates and returns a random 32-bit integer. Internal functions check
 /// that the generating hardware is warmed up and ready before returning
 /// the random value. If the hardware is too "cold" at the time of use,
-/// the function will instead use the BT clock as a "seed" and generate a
+/// the function will instead use the Bluetooth clock as a "seed" and generate a
 /// "soft" random number.
 ///
 /// \param none

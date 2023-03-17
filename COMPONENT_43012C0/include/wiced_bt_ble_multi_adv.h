@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,7 +34,9 @@
 /**************************************************************************//**
 * \file <wiced_bt_ble_multi_adv.h>
 *
-* Definitions for multi advertisemnt APIs
+* Definitions for multi advertisemnt APIs. If require Random Address support,
+* must include optional prebuilt wiced_multi_adv_utils_lib library, otherwise
+* can use function defintions provided in beacon_lib component.
 *
 */
 #ifndef MULTI_ADV_H
@@ -121,6 +123,12 @@ enum wiced_bt_ble_multi_advert_filtering_policy_e
 };
 typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;    /**< LE advertisement filtering policy (see #wiced_bt_ble_multi_advert_filtering_policy_e) */
 
+/** Multi-advertisement application callback event */
+#define BTM_BLE_MULTI_ADV_SET_RANDOM_ADDR_EVT               0x04
+typedef UINT8 tBTM_BLE_MULTI_ADV_EVT;
+/** Multi-advertisement application callback */
+typedef void (tBTM_BLE_MULTI_ADV_CBACK)(tBTM_BLE_MULTI_ADV_EVT evt, UINT8 inst_id, void *p_ref,  UINT8 status);
+
 /** \} group_ble_enums */
 
 
@@ -132,7 +140,10 @@ typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;    /**< LE adverti
 * Enable or disable advertisements of a specific instance. Prior to calling this
 * function, the instance should be instantiated and populated using the APIs
 * below. At a minimum, \ref wiced_set_multi_advertisement_params and
-* \ref wiced_set_multi_advertisement_data should be used prior.
+* \ref wiced_set_multi_advertisement_data should be used prior. If RPA is used,
+* wiced_start_multi_advertisements should be called after the first
+* BTM_BLE_MULTI_ADV_SET_RANDOM_ADDR event to ensure that the generated RPA is
+* used in over the air advertisement packets.
 *
 * \param[in] advertising_enable          MULTI_ADVERT_START or MULTI_ADVERT_STOP
 * \param[in] adv_instance                1 to MULTI_ADV_MAX_NUM_INSTANCES
@@ -150,35 +161,25 @@ wiced_result_t wiced_start_multi_advertisements( uint8_t advertising_enable, uin
  ****************************************************************************//**
  *
  * Sets the advertising parameters of a specific advertising instance. The
- * parameters are populated into a struct \ref wiced_bt_ble_multi_adv_params_t.
  * The parameters must be set according to the constraints placed by the BT
  * spec, otherwise the parameters will be rejected with error code
  * BTM_ILLEGAL_VALUE.
  *
- * \code
- * {
- *     wiced_bt_ble_multi_adv_params_t params =
- *     {
- *         .adv_int_min = WICED_BT_CFG_DEFAULT_LOW_DUTY_ADV_MIN_INTERVAL,
- *         .adv_int_max = WICED_BT_CFG_DEFAULT_LOW_DUTY_ADV_MIN_INTERVAL,
- *         .adv_type = MULTI_ADVERT_NONCONNECTABLE_EVENT,
- *         .channel_map = BTM_BLE_DEFAULT_ADVERT_CHNL_MAP,
- *         .adv_filter_policy = MULTI_ADVERT_FILTER_POLICY_FILTER_ACCEPT_LIST_NOT_USED,
- *         .adv_tx_power = MULTI_ADV_TX_POWER_MAX,
- *         .peer_addr_type = BLE_ADDR_PUBLIC, //valid only for directed type
- *         .peer_bd_addr = NULL, //valid only for directed type
- *         .own_addr_type = BLE_ADDR_RANDOM
- *     };
- *
- *     uint8_t local_bda[BD_ADDR_LEN] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
- *     memcpy(params.own_bd_addr, local_bda, BD_ADDR_LEN);
- *
- *     wiced_set_multi_advertisement_params(adv_instance, &params);
- * }
- * \endcode
- *
- * \param[in] adv_instance                  1 to MULTI_ADV_MAX_NUM_INSTANCES
- * \param[in] p_param                       \ref wiced_bt_ble_multi_adv_params_t
+ * \param[in] advertising_interval_min           min advertising interval requested
+ * \param[in] advertising_interval_max           max advertising interval requested
+ * \param[in] advertising_type                   advertising type
+ * \param[in] own_address_type                   local bda address type
+ * \param[in] ownAddr                            local bda to be used in the adv data
+                                                 for the given ad instance. If address type
+                                                 is random, the MSB of the ownAddr will be
+                                                 used to determine if a Static Random address
+                                                 or RPA is being used
+ * \param[in] peerAddrType                       peer bda address type
+ * \param[in] peerAddr                           peer bda
+ * \param[in] advertising_channel_map            advertising channel map
+ * \param[in] advertising_filter_policy          advertising filter policy
+ * \param[in] adv_instance                       adv instance id
+ * \param[in] transmit_power                     transmit power
  *
  * \return
  *  - BTM_ILLEGAL_VALUE element of p_param is out of bounds
@@ -213,6 +214,49 @@ wiced_result_t wiced_set_multi_advertisement_params( uint16_t advertising_interv
 *
 *******************************************************************************/
 wiced_result_t wiced_set_multi_advertisement_data( uint8_t * p_data, uint8_t data_len, uint8_t adv_instance );
+
+/*******************************************************************************
+* Function Name: wiced_set_multi_advertisement_app_cback
+****************************************************************************//**
+*
+* Registers a application callback with the wiced_multi_adv_utils_lib library
+*
+* \param[in] p_app_cback                        application callback
+*
+* \return
+*
+*******************************************************************************/
+void wiced_set_multi_advertisement_app_cback(tBTM_BLE_MULTI_ADV_CBACK *p_app_cback);
+
+/*******************************************************************************
+* Function Name: wiced_set_multi_advertisement_rpa_timeout
+****************************************************************************//**
+*
+* Sets the rpa refresh timeout for the given adv instance id used in the
+* wiced_multi_adv_utils_lib library
+*
+* \param[in] inst_id                            multi_adv instance id
+* \param[in] timeout                            timeout in seconds
+*
+* \return
+*
+*******************************************************************************/
+void wiced_set_multi_advertisement_rpa_timeout(UINT8 inst_id, UINT16 timeout);
+
+/*******************************************************************************
+* Function Name: wiced_multi_adv_init
+****************************************************************************//**
+*
+* Initializes the multi adv control block used in the wiced_multi_adv_utils_lib
+* library. Must be called before any other multi_advertisement apis are called
+* if using the wiced_multi_adv_utils_lib library.
+*
+* \param[in]
+*
+* \return
+*
+*******************************************************************************/
+void wiced_multi_adv_init(void);
 
 wiced_result_t wiced_set_multi_advertisement_scan_response_data(uint8_t * p_data, uint8_t data_len, uint8_t adv_instance);
 

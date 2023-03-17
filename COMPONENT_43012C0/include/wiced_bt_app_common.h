@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -41,7 +41,7 @@
 #ifndef _WICED_BT_APP_COMMON_H_
 #define _WICED_BT_APP_COMMON_H_
 
-/* BLE Advertisement Maximum Length*/
+/* LE Advertisement Maximum Length*/
 #define ADV_LEN_MAX        31
 
 #ifndef WICED_SDK_MAJOR_VER

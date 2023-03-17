@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -187,7 +187,7 @@
 #endif
 
 /****************************************************************************
-** Define memory usage for BT Trace (if not defined in buildcfg.h)
+** Define memory usage for Bluetooth Trace (if not defined in buildcfg.h)
 **  The default is to use static memory allocations.
 */
 #ifndef BTTRC_DYNAMIC_MEMORY

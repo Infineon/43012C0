@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -50,7 +50,7 @@ typedef struct wiced_pool_t wiced_bt_buffer_pool_t;
 
 #pragma pack(1)
 
-/** wiced bt dynamic buffer statistics */
+/** AIROC Bluetooth dynamic buffer statistics */
 typedef PACKED struct
 {
     uint8_t     pool_id;                    /**< pool id */
