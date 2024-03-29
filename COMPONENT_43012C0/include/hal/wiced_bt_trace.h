@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -56,6 +56,13 @@
 //#ifdef WICED_BT_TRACE_ENABLE
 //#define WICED_SHIM_TRACE_ENABLE
 //#endif
+
+// Use to disable WICED_BT_TRACE with -DTRACE_ENABLE_SRC equal to 0 or 1 on the command line, for example
+#if defined(WICED_BT_TRACE_ENABLE) && defined(TRACE_ENABLE_SRC)
+#if TRACE_ENABLE_SRC==0
+#undef WICED_BT_TRACE_ENABLE
+#endif
+#endif
 
 /** Debug trace message destinations. Used when calling wiced_set_debug_uart().*/
 typedef enum

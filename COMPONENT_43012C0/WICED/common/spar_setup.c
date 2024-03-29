@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2016-2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -133,16 +133,23 @@ void SPAR_CRT_SETUP(void)
 #else
 void patch_autoInstall(UINT32 old_address, UINT32 new_address);
 
-/* WEAK application pre_init function. Will be called if not defined anywhere else */
-__attribute__((weak))
-void wiced_memory_pre_init(uint32_t enable, uint32_t max_ble_connections, uint32_t num_ble_whitlelist)
+/* weak default pre-init memory tuning configuration */
+#include "wiced_memory_pre_init.h"
+
+WICED_MEM_PRE_INIT_CONTROL g_mem_pre_init __attribute__((weak)) =
 {
-
-}
-
-uint8_t g_wiced_memory_pre_init_enable __attribute__((weak)) = 0;
-uint8_t g_wiced_memory_pre_init_max_ble_connections __attribute__((weak)) = 0;
-uint8_t g_wiced_memory_pre_init_num_ble_rl __attribute__((weak)) = 0;
+    .max_ble_connections = WICED_MEM_PRE_INIT_IGNORE,
+    .max_peripheral_piconet = WICED_MEM_PRE_INIT_IGNORE,
+    .max_resolving_list = WICED_MEM_PRE_INIT_IGNORE,
+    .onfound_list_len = WICED_MEM_PRE_INIT_IGNORE,
+    .max_multi_adv_instances = WICED_MEM_PRE_INIT_IGNORE,
+    .adv_filter_size = WICED_MEM_PRE_INIT_IGNORE,
+    .max_bt_connections = WICED_MEM_PRE_INIT_IGNORE,
+    .disable_coex_fix = 1,
+    .p_ACL_pool_config = NULL,
+    .p_LE_pool_config = NULL,
+    .p_gen_pool_config = NULL
+};
 
 __attribute__ ((section(".spar_setup")))
 void SPAR_CRT_SETUP(void)
@@ -180,9 +187,7 @@ void SPAR_CRT_SETUP(void)
     wiced_bt_app_pre_init = application_start_internal;
 
     // Call Memory pre-initialization function (either the weak or the real (lib) one)
-    wiced_memory_pre_init(  g_wiced_memory_pre_init_enable,
-                            g_wiced_memory_pre_init_max_ble_connections,
-                            g_wiced_memory_pre_init_num_ble_rl);
+    wiced_memory_pre_init_ex(&g_mem_pre_init);
 #ifdef KITPROG3_USE_2_STOP_BITS
     {
         extern uint8_t UART_LCR_STB_CFG;

@@ -1,5 +1,5 @@
 #
-# Copyright 2016-2023, Cypress Semiconductor Corporation (an Infineon company) or
+# Copyright 2016-2024, Cypress Semiconductor Corporation (an Infineon company) or
 # an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 #
 # This software, including source code, documentation and related
@@ -91,6 +91,25 @@ else
 CY_APP_DEFINES+=-DWICED_HCI_TRANSPORT=2
 endif
 
+#
+# reduce WICED_BT_TRACE memory
+# add $(SEARCH-xxx) paths as defined in libs/mtb.mk to list CY_DISABLE_TRACE_PATH
+# for example:
+# CY_DISABLE_TRACE_PATH =$(SEARCH_btsdk-audio)
+# CY_DISABLE_TRACE_PATH+=$(SEARCH_btsdk-ota)
+#
+# this will set -DTRACE_ENABLE_SRC=0 in compiler command line for source paths that match these paths
+#
+CY_DISABLE_TRACE_PATH_MATCH = $(patsubst ../%,%,$(CY_DISABLE_TRACE_PATH))
+is_trace_enable_source = $(if $(strip $(foreach tmatch,$(CY_DISABLE_TRACE_PATH_MATCH),$(findstring $(tmatch),$1))),0,1)
+
+CY_APP_DEFINES += -DTRACE_ENABLE_SRC=$$(call is_trace_enable_source,$$<)
+
+# generation of .cycompiler removes $ and causes build error, work around
+override CY_BUILD_COMPILER_DEPS_FORMATTED=$(subst $,,$(subst ',,$(subst ",,$(patsubst -DTRACE_ENABLE_SRC=%,-DTRACE_ENABLE_SRC=1,$(patsubst is_trace_enable_source%,,$(CY_BUILD_COMPILER_DEPS))))))
+# generation of .vscode/c_cpp_properties.json by ide.mk cannot process $(call ...)
+override CY_VSCODE_DEFINES=$(foreach onedef,$(patsubst is_trace_enable_source%,,$(patsubst TRACE_ENABLE_SRC=%,TRACE_ENABLE_SRC=1,$(subst -D,,$(CY_IDE_DEFINES)))),\"$(onedef)\",)
+
 # use btp file to determine flash layout
 CY_CORE_LD_DEFS+=BTP=$(CY_CORE_BTP)
 
@@ -126,9 +145,9 @@ CY_CORE_DEFINES+=\
 
 CY_CORE_EXTRA_DEFINES=\
 	-DWICED_SDK_MAJOR_VER=4 \
-	-DWICED_SDK_MINOR_VER=3 \
-	-DWICED_SDK_REV_NUMBER=0 \
-	-DWICED_SDK_BUILD_NUMBER=57034
+	-DWICED_SDK_MINOR_VER=6 \
+	-DWICED_SDK_REV_NUMBER=3 \
+	-DWICED_SDK_BUILD_NUMBER=10701
 
 #
 # Set the output file paths

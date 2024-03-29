@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Infineon CYW43012 is a 28nm ultra-low power dual-mode Bluetooth&#174; 5.2 wireless MCU Wi-Fi + Bluetooth&#174; Combo device. It has a stand-alone baseband processor with an integrated 2.4 GHz transceiver supporting BR, EDR, and LE.
+The Infineon CYW43012 is a 28nm ultra-low power dual-mode Bluetooth&#174; 5.4 wireless MCU Wi-Fi + Bluetooth&#174; Combo device. It has a stand-alone baseband processor with an integrated 2.4 GHz transceiver supporting BR, EDR, and LE.
 
 ## SDK Software Features
 - Dual mode Bluetooth&#174; stack included in the ROM (BR/EDR and LE).
